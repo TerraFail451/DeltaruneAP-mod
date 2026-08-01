@@ -33,26 +33,24 @@ function snd_init(arg0)
     if (!is_string(_song))
     {
         global.randomized_embedded_song = audio_play_sound(_song, 50, 1);
-
-        if (_song == snd_songpreview_4rd)
-        {
-            snd_pitch(global.randomized_embedded_song, 0.5);
-        }
-
         return "nosong.ogg";
     }
 
     if (variable_global_exists("randomized_embedded_song"))
             snd_stop(global.randomized_embedded_song);
     
-    if (_song == "mus_undynescary.ogg")
+    if (_song == "snd_usefountain.ogg")
+        var dir = "chapter" + global.chapter + "_windows/";
+    else if (_song == "mus_undynescary.ogg")
         var dir = "chapter4_windows/";
     else
         var dir = "mus/";
     
     if (global.launcher)
     {
-        if (_song == "mus_undynescary.ogg")
+        if (_song == "snd_usefountain.ogg")
+            dir = working_directory + "../chapter" + global.chapter + "_windows/";
+        else if (_song == "mus_undynescary.ogg")
             dir = working_directory + "../chapter4_windows/";
         else
             dir = working_directory + "../mus/";
@@ -62,7 +60,7 @@ function snd_init(arg0)
     _mystream = audio_create_stream(initsongvar);
     _astream = instance_create(0, 0, obj_astream);
     _astream.mystream = _mystream;
-#if CHAPTER_1
+#if !CHAPTER_1
     _astream.songname = _song;
 #endif
     return _mystream;
