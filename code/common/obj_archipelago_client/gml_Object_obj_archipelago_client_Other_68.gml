@@ -98,6 +98,12 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_have_starwalker = data[i].slot_data.options.have_starwalker;
                     if (variable_struct_exists(data[i].slot_data.options, "better_odds"))
                         global.AP_better_odds = data[i].slot_data.options.better_odds;
+                    if (variable_struct_exists(data[i].slot_data.options, "randomize_music"))
+                        global.AP_randomize_music = data[i].slot_data.options.randomize_music;
+                    if (variable_struct_exists(data[i].slot_data.options, "include_unused_music"))
+                        global.AP_include_unused_music = data[i].slot_data.options.include_unused_music;
+                    if (variable_struct_exists(data[i].slot_data.options, "include_odd_music"))
+                        global.AP_include_odd_music = data[i].slot_data.options.include_odd_music;
                     if (variable_struct_exists(data[i].slot_data.options, "item_balancing"))
                         global.AP_balancing = data[i].slot_data.options.item_balancing;
                     if (variable_struct_exists(data[i].slot_data.options, "remove_starting_equipment"))
@@ -162,6 +168,8 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_location_item = scouting_struct;
                         AP_postScouting();
                     }
+
+                    global.AP_randomized_music_list = AP_get_randomized_music_list();
                     
                     break;
                 
