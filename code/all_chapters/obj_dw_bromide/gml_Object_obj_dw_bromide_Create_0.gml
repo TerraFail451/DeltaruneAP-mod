@@ -34,7 +34,9 @@ use_item = function(arg0)
     pause_music();
     var bromide_data = new scr_get_bromide_data(arg0);
     _bromide_sprite = bromide_data.bromide_sprite;
-    _bromide_audio = snd_play(bromide_data.bromide_audio, 1, 1);
+    var _song = AP_get_random_song(bromide_data.bromide_audio);
+    snd_init(_song);
+    _bromide_audio = snd_init(_song);
     _bromide_y = cameray();
     
     if (global.darkzone == 0)

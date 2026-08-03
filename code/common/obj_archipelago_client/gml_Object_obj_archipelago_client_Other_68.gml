@@ -100,10 +100,12 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_better_odds = data[i].slot_data.options.better_odds;
                     if (variable_struct_exists(data[i].slot_data.options, "randomize_music"))
                         global.AP_randomize_music = data[i].slot_data.options.randomize_music;
-                    if (variable_struct_exists(data[i].slot_data.options, "include_unused_music"))
-                        global.AP_include_unused_music = data[i].slot_data.options.include_unused_music;
+                    if (variable_struct_exists(data[i].slot_data.options, "music_source"))
+                        global.AP_music_source = data[i].slot_data.options.music_source;
                     if (variable_struct_exists(data[i].slot_data.options, "include_odd_music"))
                         global.AP_include_odd_music = data[i].slot_data.options.include_odd_music;
+                    if (variable_struct_exists(data[i].slot_data.options, "include_unused_music"))
+                        global.AP_include_unused_music = data[i].slot_data.options.include_unused_music;
                     if (variable_struct_exists(data[i].slot_data.options, "item_balancing"))
                         global.AP_balancing = data[i].slot_data.options.item_balancing;
                     if (variable_struct_exists(data[i].slot_data.options, "remove_starting_equipment"))
@@ -168,8 +170,12 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_location_item = scouting_struct;
                         AP_postScouting();
                     }
+                    
+                    if (global.AP_randomize_music > 0)
+                        global.AP_randomized_music_list = AP_get_randomized_music_list();
 
-                    global.AP_randomized_music_list = AP_get_randomized_music_list();
+                    if (global.AP_randomize_music == (1 || 2))
+                        global.AP_randomized_music_list_shuffled = AP_shuffle_music_rando_list();
                     
                     break;
                 
@@ -446,6 +452,33 @@ function array_concat(array1, array2)
     }
 
     return res;
+}
+
+function array_shuffle(arg0)
+{
+    var _len = array_length(arg0);
+    var _last = 0;
+    var _i = 0;
+    
+    while (_len)
+    {
+        _i = irandom(--_len);
+        _last = arg0[_len];
+        arg0[_len] = arg0[_i];
+        arg0[_i] = _last;
+    }
+    
+    return arg0;
+}
+
+function array_get_index(array, value)
+{
+    for (var i = 0; i < array_length(array); i++)
+    {
+        if (array[i] == value)
+            return i;
+    }
+    return -1;
 }
 
 function struct_find_key_by_value(_struct, _value)
