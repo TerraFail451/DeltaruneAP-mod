@@ -1,7 +1,7 @@
 /// IMPORT
 function snd_init(arg0)
 {
-    var _ignored = ["ch3_karaoke_no_guitar.ogg" || "ch3_karaoke_full.ogg" || "ch3-practice_song_noguit.ogg" || "ch3-practice_song_combined.ogg" || "tenna_battle.ogg" || "tenna_battle_guitar.ogg" || "ch3_tvtime.ogg" || "ch3_tvtime_guitar.ogg" || "board4_rhythm.ogg" || "rhythm_knockdown_no_guit.ogg" || "rhythm_knockdown_combined.ogg" || "4rd_sanctuary.ogg" || "4rd_sanctuary_noguit.ogg"];
+    var _ignored = ["ch3_karaoke_no_guitar.ogg" || "ch3_karaoke_full.ogg" || "ch3-practice_song_noguit.ogg" || "ch3-practice_song_combined.ogg" || "tenna_battle.ogg" || "tenna_battle_guitar.ogg" || "ch3_tvtime.ogg" || "ch3_tvtime_guitar.ogg" || "board4_rhythm.ogg" || "rhythm_knockdown_no_guit.ogg" || "rhythm_knockdown_combined.ogg" || "statue_level1.ogg" || "statue_chord_basic.ogg" || "statue_level2.ogg" || "statue_level3.ogg" || "statue_level4.ogg" || "sound_battle_bg.ogg" || "statue2_level1.ogg" || "statue2_level2.ogg" || "statue2_level3.ogg" || "statue2_level4.ogg" || "statue2_level5.ogg" || "4rd_sanctuary.ogg" || "4rd_sanctuary_noguit.ogg"];
     var _undertale = [];
 
     if (global.AP_randomize_music > 0)

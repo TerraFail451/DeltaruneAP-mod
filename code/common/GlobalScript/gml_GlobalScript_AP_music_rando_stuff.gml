@@ -96,7 +96,7 @@ function AP_get_randomized_music_list()
             array_push(_song_array, "GALLERY.ogg", snd_usefountain, "charjoined.ogg", "ocean.ogg", "queen_intro.ogg", "spamton_basement.ogg", "alley_ambience.ogg", "shinkansen.ogg", "wind_highplace.ogg", "berdly_descend.ogg");
 
         if (global.AP_include_odd_music == 2)
-            array_push(_song_array, , , );
+            array_push(_song_array, "tv_noise.ogg");
 
         if (global.AP_include_unused_music == 1 && global.AP_include_odd_music >= 1)
             array_push(_song_array, "spamton_house.ogg", , );
@@ -106,16 +106,16 @@ function AP_get_randomized_music_list()
     }
     if (_included_chapters[2] == 1) // CHAPTER 3
     {
-        array_push(_song_array, "creepychase.ogg", "legend.ogg", "ruruskaado.ogg", "AUDIO_STORY.ogg", "dogcheck.ogg", "menu.ogg", "AUDIO_DEFEAT.ogg", "rouxls_battle.ogg", "noelle_normal.ogg", "ch2_credits.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg");
+        array_push(_song_array, "creepychase.ogg", "legend.ogg", "ruruskaado.ogg", "AUDIO_STORY.ogg", "dogcheck.ogg", "menu.ogg", "AUDIO_DEFEAT.ogg", "rouxls_battle.ogg", "noelle_normal.ogg", "ch2_credits.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg", "ch3_tvtime.ogg", "board_zelda.ogg", "TV_GAME.ogg", "board_lancer_dig.ogg", "tvromance.ogg", "rudebuster_boss.ogg", "minigame_kart.ogg", "nes_intro_extended_part2.ogg", "greenroom_detune.ogg", "battle_vapor.ogg", "tenna_island.ogg", "ch3_board2.ogg", "ch3_south_of_the_border.ogg", "ch3-practice_song_combined.ogg", "ch3_karaoke_full.ogg", "trank.ogg", "tv_results_screen.ogg", "board_4.ogg", "board_4_challenge.ogg", "tv_world.ogg", "tenna_battle.ogg", "tv_hall_of_fame.ogg", "knight.ogg", "tv_changingroom.ogg", "board_sword_music.ogg", "northernlight.ogg", "glacier.ogg", "nightmare_boss_heavy.ogg", "findher.ogg");
 
         if (global.AP_include_unused_music == 1)
             array_push(_song_array, "ch3_board3.ogg", "ch3_board1.ogg", "nightmare_boss_links.ogg");
 
         if (global.AP_include_odd_music >= 1)
-            array_push(_song_array, "AUDIO_DRONE.ogg", "wind_highplace.ogg");
+            array_push(_song_array, "AUDIO_DRONE.ogg", "wind_highplace.ogg", "knight_appears.ogg", "night_ambience.ogg", "root_8bit.ogg", "nightmare_nes.ogg", "ambientwater_weird.ogg", "board_ocean.ogg", "newscast.ogg", "board4_rhythm.ogg");
 
         if (global.AP_include_odd_music == 2)
-            array_push(_song_array, , , );
+            array_push(_song_array, "baci_distort.ogg");
 
         if (global.AP_include_unused_music == 1 && global.AP_include_odd_music >= 1)
             array_push(_song_array, snd_usefountain, "wet_tapdancing.ogg", "wet_tapdancing2.ogg", "wet_tapdancing_failed.ogg");
@@ -125,16 +125,16 @@ function AP_get_randomized_music_list()
     }
     if (_included_chapters[3] == 1) // CHAPTER 4
     {
-        array_push(_song_array, "creepydoor.ogg", "creepychase.ogg", "shop1.ogg", "tense.ogg", "home.ogg", "menu.ogg", "noelle_school.ogg", "castletown.ogg", "AUDIO_DEFEAT.ogg", "queen_car_radio.ogg", "noelle_normal.ogg", "boxing_boss.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg");
+        array_push(_song_array, "creepydoor.ogg", "creepychase.ogg", "shop1.ogg", "tense.ogg", "home.ogg", "menu.ogg", "noelle_school.ogg", "castletown.ogg", "AUDIO_DEFEAT.ogg", "queen_car_radio.ogg", "noelle_normal.ogg", "boxing_boss.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg", "tvromance.ogg", "nes_intro_extended_part2.ogg", "ch3_karaoke_full.ogg", "tenna_battle.ogg", "tv_changingroom.ogg", "church_lw.ogg", "church_hymn.ogg", "town_day.ogg", "susie_diner.ogg", "castle_funk_long.ogg", "rhythm_knockdown_combined.ogg", "noelle_house_wip.ogg", "noelle_distant.ogg", "darkchurch_intro.ogg", "church_wip.ogg", "ch4_battle.ogg", "gerson_theme_intro.ogg", "church_dark_study.ogg", "pumpkin_boss.ogg", "climb.ogg", "gerson_defeated.ogg", "kris_piano_lower.ogg", "ch4_extra_boss.ogg", "church_lw_night.ogg", "second_church.ogg", "church_zone3.ogg", "dark_place.ogg", "titan_pre.ogg", "titan_tower.ogg", "titan_spawn.ogg", "titan_battle.ogg", "oldman_helps_out.ogg", "rain.ogg", "jitterbug.ogg", "ch4_credits.ogg", "legend_altered.ogg", "quiet_church.ogg", "mike_zone.ogg", "mike.ogg", "spamton_dance.ogg", "ch4_first_intro.ogg", "smallpiano_room.ogg", "alt_church_lobby.ogg", "lancer_annoying.ogg");
 
         if (global.AP_include_unused_music == 1)
             array_push(_song_array, "annoying_prophecy.ogg", "church_zone2_alt_longer_test.ogg", mus_undynescary);
 
         if (global.AP_include_odd_music >= 1)
-            array_push(_song_array, "fanfare.ogg","GALLERY.ogg", snd_usefountain, "charjoined.ogg", "ocean.ogg", "wind_highplace.ogg", "afterrain_inside.ogg");
+            array_push(_song_array, "fanfare.ogg","GALLERY.ogg", snd_usefountain, "charjoined.ogg", "ocean.ogg", "wind_highplace.ogg", "carol_appeared.ogg", "bell_ambience.ogg", "statue_level1.ogg", "statue_chord_basic.ogg", "statue_level2.ogg", "statue_level3.ogg", "statue_level4.ogg", "sound_battle_bg.ogg", "statue2_level1.ogg", "statue2_level2.ogg", "statue2_level3.ogg", "statue2_level4.ogg", "statue2_level5.ogg", "sadchord2.ogg", "afterrain_inside.ogg", "jitterbug_muffled.ogg");
 
         if (global.AP_include_odd_music == 2)
-            array_push(_song_array, , , );
+            array_push(_song_array, "tin_night.ogg", "strongwind_loop.ogg", "mus_knightthought.ogg", "pianpian.ogg");
 
         if (global.AP_include_unused_music == 1 && global.AP_include_odd_music >= 1)
             array_push(_song_array, "sinedrone_danger.ogg", , );
@@ -144,16 +144,16 @@ function AP_get_randomized_music_list()
     }
     if (_included_chapters[4] == 1) // CHAPTER 5 (also yes, i know Ride the Board is "flowery_skateboard.ogg", it's just that "thrash_rating.ogg" loops i chose to use that instead)
     {
-        array_push(_song_array, "creepydoor.ogg", "lancer.ogg", "shop1.ogg", "thrashmachine.ogg", "menu.ogg", "castletown.ogg", "AUDIO_DEFEAT.ogg", "rouxls_battle.ogg", "noelle_normal.ogg", "boxing_boss.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg");
+        array_push(_song_array, "creepydoor.ogg", "lancer.ogg", "shop1.ogg", "thrashmachine.ogg", "menu.ogg", "castletown.ogg", "AUDIO_DEFEAT.ogg", "rouxls_battle.ogg", "noelle_normal.ogg", "boxing_boss.ogg", "flashback_excerpt.ogg", "baci_perugina.ogg", "ch3_tvtime.ogg", "rudebuster_boss.ogg", "minigame_kart.ogg", "nes_intro_extended_part2.ogg", "ch3_karaoke_full.ogg", "tenna_battle.ogg", "tv_changingroom.ogg", "susie_diner.ogg", "castle_funk_long.ogg", "rhythm_knockdown_combined.ogg", "legend_altered.ogg", "quiet_church.ogg", "lancer_annoying.ogg");
 
         if (global.AP_include_unused_music == 1)
             array_push(_song_array, "inukuma_wip.ogg", "rhythm_3rd_sanctuary_guit.ogg", "rhythm_3rd_sanctuary_noguit.ogg", "castle_intro.ogg", "cliff_jump_ambience_nowind.ogg", "meeting_flower_upbeat_drum.ogg", "flowery_iog.ogg", "ch5_weird_monologue.ogg");
 
         if (global.AP_include_odd_music >= 1)
-            array_push(_song_array, snd_usefountain, "wind_highplace.ogg", snd_pink_stretch_2_troubled, snd_pink_stretch_2_fixed);
+            array_push(_song_array, snd_usefountain, "wind_highplace.ogg", "night_ambience.ogg", snd_pink_stretch_2_troubled, snd_pink_stretch_2_fixed);
 
         if (global.AP_include_odd_music == 2)
-            array_push(_song_array, , , );
+            array_push(_song_array, "strongwind_loop.ogg", , );
 
         if (global.AP_include_unused_music == 1 && global.AP_include_odd_music >= 1)
             array_push(_song_array, , , );
