@@ -1,6 +1,9 @@
 /// IMPORT
 function snd_init(arg0)
 {
+    var _ignored = ["ch3_karaoke_no_guitar.ogg" || "ch3_karaoke_full.ogg" || "ch3-practice_song_noguit.ogg" || "ch3-practice_song_combined.ogg" || "tenna_battle.ogg" || "tenna_battle_guitar.ogg" || "ch3_tvtime.ogg" || "ch3_tvtime_guitar.ogg" || "board4_rhythm.ogg" || "rhythm_knockdown_no_guit.ogg" || "rhythm_knockdown_combined.ogg" || "4rd_sanctuary.ogg" || "4rd_sanctuary_noguit.ogg"];
+    var _undertale = [];
+
     if (global.AP_randomize_music > 0)
     {
         if (!variable_global_exists("unrandomized_current_song"))
@@ -10,10 +13,8 @@ function snd_init(arg0)
         
         if (global.unrandomized_current_song != arg0)
         {
-            var _ignored_songs = ["ch3_karaoke_no_guitar.ogg" || "ch3_karaoke_full.ogg" || "ch3-practice_song_noguit.ogg" || "ch3-practice_song_combined.ogg" || "tenna_battle.ogg" || "tenna_battle_guitar.ogg" || "ch3_tvtime.ogg" || "ch3_tvtime_guitar.ogg" || "board4_rhythm.ogg" || "rhythm_knockdown_no_guit.ogg" || "rhythm_knockdown_combined.ogg" || "4rd_sanctuary.ogg" || "4rd_sanctuary_noguit.ogg"];
-
-            if (!array_contains(_ignored_songs, arg0));
-                var _song = AP_get_random_song();
+            if ((!array_contains(_ignored, arg0)) && (array_contains(global.AP_randomized_music_list, arg0)));
+                var _song = AP_get_random_song(arg0);
             else
                 var _song = arg0;
             
@@ -37,21 +38,17 @@ function snd_init(arg0)
     }
 
     if (variable_global_exists("randomized_embedded_song"))
-            snd_stop(global.randomized_embedded_song);
+        snd_stop(global.randomized_embedded_song);
     
-    if (_song == "snd_usefountain.ogg")
-        var dir = "chapter" + global.chapter + "_windows/";
-    else if (_song == "mus_undynescary.ogg")
-        var dir = "chapter4_windows/";
+    if (array_contains(_undertale, _song))
+        var dir = "../Undertale/";
     else
         var dir = "mus/";
     
     if (global.launcher)
     {
-        if (_song == "snd_usefountain.ogg")
-            dir = working_directory + "../chapter" + global.chapter + "_windows/";
-        else if (_song == "mus_undynescary.ogg")
-            dir = working_directory + "../chapter4_windows/";
+        if (array_contains(_undertale, _song))
+            dir = working_directory + "../../Undertale/";
         else
             dir = working_directory + "../mus/";
     }
