@@ -79,11 +79,7 @@ function AP_get_randomized_music_list()
     var _included_chapters = [0, 0, 0, 0, 0];
     var _undertale = 0;
 
-    if (global.AP_music_source == (1 || 4))
-    {
-        _included_chapters = [1, 1, 1, 1, 1];
-    }
-    else if (global.AP_music_source == (0 || 3))
+    if (global.AP_music_source == 0)
     {
         for (var i = 0; i < global.AP_max_chapter; i++)
         {
@@ -91,9 +87,27 @@ function AP_get_randomized_music_list()
                 _included_chapters[i] = 1;
         }
     }
-
-    if (global.AP_music_source > 1)
+    if (global.AP_music_source == 1)
     {
+        _included_chapters = [1, 1, 1, 1, 1];
+    }
+    if (global.AP_music_source == 2)
+    {
+        _undertale = 1;
+    }
+    if (global.AP_music_source == 3)
+    {
+        for (var i = 0; i < global.AP_max_chapter; i++)
+        {
+            if (global.AP_include_chapters[i] == 1)
+                _included_chapters[i] = 1;
+
+            _undertale = 1;
+        }
+    }
+    if (global.AP_music_source == 4)
+    {
+        _included_chapters = [1, 1, 1, 1, 1];
         _undertale = 1;
     }
     

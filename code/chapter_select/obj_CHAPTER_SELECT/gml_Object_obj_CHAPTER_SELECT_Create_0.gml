@@ -104,7 +104,9 @@ detect_no_chapters = function()
             if (event_value == UnknownEnum.Value_0)
             {
                 if (!obj_archipelago_client.AP_isAuthenticated())
+                {
                     room_goto(PLACE_ARCHIPELAGO_CONNECT);
+                }
                 else
                 {
                     detect_no_chapters();
@@ -136,24 +138,4 @@ detect_no_chapters = function()
                 {
                     obj_archipelago_client.AP_disconnect();
                 }
-/// END
-
-/// REPLACE
-    if (global.bgm == -4 || !audio_is_playing(global.bgm))
-        global.bgm = audio_play_sound(AUDIO_DRONE, 15, 1);
-/// CODE
-    if (global.bgm == -4 || !audio_is_playing(global.bgm))
-    {
-        var _song = snd_init("AUDIO_DRONE.ogg");
-
-        if (_song == -1)
-        {
-            global.bgm = audio_play_sound("AUDIO_DRONE.ogg", 15, 1);
-        }
-        else
-        {
-            global.bgm = audio_play_sound(_song, 15, 1);
-        }
-    }
-
 /// END
