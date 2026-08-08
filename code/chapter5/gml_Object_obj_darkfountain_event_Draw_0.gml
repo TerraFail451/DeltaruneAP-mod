@@ -4,8 +4,21 @@
             snd_play(snd_usefountain);
 /// CODE
         {
-            var _song = AP_get_random_song(snd_usefountain);
-            snd_init(_song);
+            var _song = snd_init(snd_usefountain);
+
+            if (_song == -1)
+            {
+                snd_play(snd_usefountain);
+            }
+            else
+            {
+                var _fountain_song = snd_loop(_song);
+            
+                with (obj_archipelago_music_tracker)
+                {
+                    add_timer(snd_usefountain, other._fountain_song);
+                }
+            }
         }
 /// END
 

@@ -34,10 +34,22 @@ use_item = function(arg0)
     pause_music();
     var bromide_data = new scr_get_bromide_data(arg0);
     _bromide_sprite = bromide_data.bromide_sprite;
-    var _song = AP_get_random_song(bromide_data.bromide_audio);
-    snd_init(_song);
-    _bromide_audio = snd_init(_song);
     _bromide_y = cameray();
+    var _song = snd_init(bromide_data.bromide_audio);
+
+    if (_song == -1)
+    {
+        _bromide_audio = snd_play(bromide_data.bromide_audio, 1, 1);
+    }
+    else
+    {
+        _bromide_audio = snd_loop(_song);
+
+        with (obj_archipelago_music_tracker)
+        {
+            add_timer(other.bromide_data.bromide_audio, other._bromide_audio);
+        }
+    }
     
     if (global.darkzone == 0)
         _bromide_y_target = cameray() - ((sprite_get_height(_bromide_sprite) - 480) / 2);

@@ -4,6 +4,7 @@ wss = 7;
 ws = 6;
 
 instance_create_depth(0, 0, -15000, obj_archipelago_toast_notificator);
+instance_create_depth(0, 0, -15000, obj_archipelago_music_tracker);
 
 global.AP_ENUM_CHOSEN_ROUTE = {
     UNKNOWN: -1,
@@ -66,6 +67,8 @@ global.AP_include_odd_music = false;
 global.AP_include_unused_music = false;
 global.AP_randomized_music_list = [];
 global.AP_randomized_music_list_shuffled = [];
+global.AP_unrandomized_current_song = snd_nosound;
+global.AP_randomized_current_song = snd_nosound;
 global.AP_deathlink = false;
 global.AP_deathlink_protected = false;
 global.AP_deathlink_infos = {source: undefined, cause: undefined, time: undefined};

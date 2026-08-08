@@ -454,33 +454,6 @@ function array_concat(array1, array2)
     return res;
 }
 
-function array_shuffle(arg0)
-{
-    var _len = array_length(arg0);
-    var _last = 0;
-    var _i = 0;
-    
-    while (_len)
-    {
-        _i = irandom(--_len);
-        _last = arg0[_len];
-        arg0[_len] = arg0[_i];
-        arg0[_i] = _last;
-    }
-    
-    return arg0;
-}
-
-function array_get_index(array, value)
-{
-    for (var i = 0; i < array_length(array); i++)
-    {
-        if (array[i] == value)
-            return i;
-    }
-    return -1;
-}
-
 function struct_find_key_by_value(_struct, _value)
 {
     var _keys = variable_struct_get_names(_struct);
