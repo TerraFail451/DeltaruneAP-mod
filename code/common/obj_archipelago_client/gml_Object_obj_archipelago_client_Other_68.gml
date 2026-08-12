@@ -171,12 +171,6 @@ if (ds_map_exists(async_load, "buffer"))
                         AP_postScouting();
                     }
                     
-                    if (global.AP_randomize_music > 0)
-                        global.AP_randomized_music_list = AP_get_randomized_music_list();
-
-                    if (global.AP_randomize_music == (1 || 2))
-                        global.AP_randomized_music_list_shuffled = AP_shuffle_music_rando_list();
-                    
                     break;
                 
                 case "ConnectionRefused":
