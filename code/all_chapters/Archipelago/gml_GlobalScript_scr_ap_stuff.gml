@@ -295,18 +295,17 @@ function AP_fill_randomized_music_struct()
     global.AP_included_music_array = [];
     global.AP_randomized_music_struct = {}
 
-    var _sideb = ((global.AP_route_from_settings == global.AP_ENUM_CHOSEN_ROUTE.WEIRD_ROUTE) || (global.AP_route_from_settings == global.AP_ENUM_CHOSEN_ROUTE.BOTH_ROUTES));
-    var _sideb_only = global.AP_route_from_settings == global.AP_ENUM_CHOSEN_ROUTE.WEIRD_ROUTE;
-    var _included_chapters = [0, 0, 0, 0, 0];
-    var _undertale = 0;
-
-    var _shuffled_list = [];
-    var _seed = global.AP_multiworld;
-#if !CHAPTER_SELECT    
+    var include_undertale = 0;
+    var included_chapters = [-4, 0, 0, 0, 0, 0, 0, 0];
+    var included_chapters_a = [-4, -1, 0, -1, 0, 0, -1, 0];
+    var included_chapters_b = [-4, -1, 0, -1, 0, 0, -1, 0];
+    var disable_chapter_6 = 0;
+    
+    var shuffled_list = [];
+    var seed = global.AP_multiworld;
     
     if (global.AP_randomize_music == 2)
-        _seed = ((global.AP_multiworld * (global.chapter + 1)) % power(2, 32));
-#endif
+        seed = ((global.AP_multiworld * (global.chapter)) % power(2, 32));
 
     switch (global.AP_music_source)
     {
@@ -314,286 +313,317 @@ function AP_fill_randomized_music_struct()
             for (var i = 0; i < global.AP_max_chapter; i++)
             {
                 if (global.AP_include_chapters[i] == 1)
-                    _included_chapters[i] = 1;
+                    included_chapters[i + 1] = 1;
             }
 
             break;
         
         case 1:
-            _included_chapters = [1, 1, 1, 1, 1];
+            included_chapters = [-4, 1, 1, 1, 1, 1, 1, 1];
             break;
         
         case 2:
-            _undertale = 1;
+            include_undertale = 1;
             break;
         
         case 3:
             for (var i = 0; i < global.AP_max_chapter; i++)
             {
                 if (global.AP_include_chapters[i] == 1)
-                    _included_chapters[i] = 1;
+                    included_chapters[i + 1] = 1;
             }
 
-            _undertale = 1;
+            include_undertale = 1;
             break;
         
         case 4:
-            _included_chapters = [1, 1, 1, 1, 1];
-            _undertale = 1;
+            included_chapters = [-4, 1, 1, 1, 1, 1, 1, 1];
+            include_undertale = 1;
             break;
     }
+    
+    // SIDE B
+    if ((global.AP_route_from_settings == global.AP_ENUM_CHOSEN_ROUTE.WEIRD_ROUTE) || (global.AP_route_from_settings == global.AP_ENUM_CHOSEN_ROUTE.BOTH_ROUTES))
+    {
+        for (var i = 0; i < global.AP_max_chapter; i++)
+        {
+            if ((included_chapters[i + 1] == 1) && (included_chapters_b[i + 1] != -1))
+                included_chapters_b[i + 1] = 1;
+        }
+
+        // disable chapter 6 if on side b (doesn't do anything yet lol)
+        if (included_chapters[6])
+            disable_chapter_6 = 1;
+    }
+
+    // SIDE A
+    if (global.AP_route_from_settings != global.AP_ENUM_CHOSEN_ROUTE.WEIRD_ROUTE)
+    {
+        for (var i = 0; i < global.AP_max_chapter; i++)
+        {
+            if ((included_chapters[i + 1] == 1) && (included_chapters_a[i + 1] != -1))
+                included_chapters_a[i + 1] = 1;
+        }
+
+        // re-enable chapter 6 if it was disabled by side b (doesn't do anything yet lol)
+        if (included_chapters[6])
+            disable_chapter_6 = 0;
+    }
+
+    // disable chapter 6 if only on side b (doesn't do anything yet lol)
+    if (disable_chapter_6)
+        included_chapters[6] = 0;
 
     // copying the AP_fill_progressive_weapon_struct function is hilariously inefficient but it's like extremely helpful and will save me headache both now and in the future
-
-    if (_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "AUDIO_ANOTHERHIM.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "mus_introcar.ogg");
 
-    if (_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "mus_school.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "s_neo.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[3] || (_included_chapters[4] && !_sideb_only))
+    if (included_chapters[1] || included_chapters[2] || included_chapters[4] || included_chapters_a[5])
         array_push(global.AP_included_music_array, "creepydoor.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "creepylandscape.ogg");
 
-    if (_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || _included_chapters[2] || _included_chapters[3] || (_included_chapters[4] && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters_a[2] || included_chapters[3] || included_chapters[4] || (included_chapters[5] && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "creepychase.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[2])
+    if (included_chapters[1] || included_chapters[2] || included_chapters[3])
         array_push(global.AP_included_music_array, "legend.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || ((_included_chapters[2] || _included_chapters[3]) && (global.AP_include_unused_music == 2)) || (_included_chapters[4] && !_sideb_only))
+    if (included_chapters[1] || included_chapters[2] || ((included_chapters[3] || included_chapters[4]) && (global.AP_include_unused_music == 2)) || included_chapters_a[5])
         array_push(global.AP_included_music_array, "lancer.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[2] || _included_chapters[3] || (_included_chapters[4] && !_sideb_only));
+    if (included_chapters[1] || included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters_a[5]);
         array_push(global.AP_included_music_array, "battle.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || ((_included_chapters[2] || _included_chapters[3]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters[2] || ((included_chapters[3] || included_chapters[4]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "castletown_empty.ogg");
 
-    if ((_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "bird.ogg");
 
-    if (_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "field_of_hopes.ogg");
 
-    if ((_included_chapters[0] || _included_chapters[3]) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters[4]) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "fanfare.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || (_included_chapters[2] && (global.AP_include_unused_music == 2)) || _included_chapters[3] || (_included_chapters[4] && !_sideb_only))
+    if (included_chapters[1] || included_chapters[2] || (included_chapters[3] && (global.AP_include_unused_music == 2)) || included_chapters[4] || included_chapters_a[5])
         array_push(global.AP_included_music_array, "shop1.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "lancer_susie.ogg");
 
-    if (_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "checkers.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "quiet_autumn.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "forest.ogg");
 
-    if (_included_chapters[0] || (_included_chapters[4] && !_sideb_only))
+    if (included_chapters[1] || included_chapters_a[5])
         array_push(global.AP_included_music_array, "thrashmachine.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "lancerfight.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "basement.ogg");
 
-    if (_included_chapters[0] || _included_chapters[3])
+    if (included_chapters[1] || included_chapters[4])
         array_push(global.AP_included_music_array, "tense.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "vs_susie.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "card_castle.ogg");
 
-    if (_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || _included_chapters[2] || ((_included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters_a[2] || included_chapters[3] || ((included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "ruruskaado.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "april_2012.ogg");
 
-    if (_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || ((_included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters_a[2] || ((included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "hip_shop.ogg");
 
-    if ((_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || _included_chapters[3]) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters_a[2] || included_chapters[4]) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "GALLERY.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "kingboss.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[2] || _included_chapters[3] || (_included_chapters[4] && !_sideb_only));
+    if (included_chapters[1] || included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters_a[5]);
         array_push(global.AP_included_music_array, "AUDIO_DARKNESS.ogg");
         
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "prejoker.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "joker.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "friendship.ogg");
 
-    if (_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || ((_included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters_a[2] || ((included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "THE_HOLY.ogg");
 
-    if ((_included_chapters[0] || ((_included_chapters[1] || _included_chapters[3] || _included_chapters[4]) && !_sideb_only) || (_included_chapters[2] && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters_a[2] || (included_chapters[3] && (global.AP_include_unused_music == 2)) || included_chapters_a[4] || included_chapters_a[5]) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "snd_usefountain");
 
-    if (_included_chapters[0] || _included_chapters[1] || ((_included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if (included_chapters[1] || included_chapters[2] || ((included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "town.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[3] || (_included_chapters[4] && !_sideb_only))
+    if (included_chapters[1] || included_chapters[2] || included_chapters[4] || included_chapters_a[5])
         array_push(global.AP_included_music_array, "home.ogg");
 
-    if (_included_chapters[0])
+    if (included_chapters[1])
         array_push(global.AP_included_music_array, "dontforget.ogg");
 
-    if (_included_chapters[0] || _included_chapters[1] || _included_chapters[2])
+    if (included_chapters[1] || included_chapters[2] || included_chapters[3])
         array_push(global.AP_included_music_array, "AUDIO_STORY.ogg");
 
-    if ((_included_chapters[0] || _included_chapters[2] || ((_included_chapters[1] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1));
+    if ((included_chapters[1] || included_chapters[3] || ((included_chapters[2] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1));
         array_push(global.AP_included_music_array, "AUDIO_DRONE.ogg");
 
-    if ((_included_chapters[0] || ((_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || ((included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "w.ogg");
 
-    if ((_included_chapters[0] || _included_chapters[1] || (_included_chapters[2] && (global.AP_include_unused_music == 2)) || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters[2] || (included_chapters[3] && (global.AP_include_unused_music == 2)) || included_chapters[4] || included_chapters[5]) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "ocean.ogg");
 
-    if ((_included_chapters[0] || (_included_chapters[2] && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || (included_chapters[3] && (global.AP_include_unused_music == 2))) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "elevator.ogg");
 
-    if ((_included_chapters[0] || _included_chapters[1] || _included_chapters[3]) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters[2] || included_chapters[4]) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "charjoined.ogg");
     
-    if ((_included_chapters[0] || _included_chapters[1] || (_included_chapters[2] && (global.AP_include_unused_music == 2)) || _included_chapters[3] || _included_chapters[4] || _undertale) && (global.AP_include_odd_music >= 1))
+    if ((included_chapters[1] || included_chapters[2] || (included_chapters[3] && (global.AP_include_unused_music == 2)) || included_chapters[4] || included_chapters[5] || include_undertale) && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "mus_birdnoise.ogg");
 
     
     
-    if (_included_chapters[1] || _included_chapters[2] || _included_chapters[3] || _included_chapters[4])
+    if (included_chapters[2] || included_chapters[3] || included_chapters[4] || included_chapters[5])
         array_push(global.AP_included_music_array, "menu.ogg");
 
-    if (_included_chapters[1] || _included_chapters[3])
+    if (included_chapters[2] || included_chapters[4])
         array_push(global.AP_included_music_array, "noelle_school.ogg");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[1])
+    if (included_chapters[2])
         array_push(global.AP_included_music_array, "");
 
 
@@ -601,471 +631,471 @@ function AP_fill_randomized_music_struct()
 
 
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && !_sideb_only))
+    if (included_chapters_a[2])
         array_push(global.AP_included_music_array, "");
 
 
     
     
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[1] && _sideb))
+    if (included_chapters_b[2])
         array_push(global.AP_included_music_array, "");
 
 
     
     
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "");
 
     
     
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[3] && _sideb))
+    if (included_chapters_b[4])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[3] && _sideb))
+    if (included_chapters_b[4])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[3] && _sideb))
+    if (included_chapters_b[4])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[3] && _sideb))
+    if (included_chapters_b[4])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[3] && _sideb))
+    if (included_chapters_b[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3] && !_sideb_only)
+    if (included_chapters_a[4])
         array_push(global.AP_included_music_array, "carol_appeared");
 
-    if (_included_chapters[3])
+    if (included_chapters_a[4])
+        array_push(global.AP_included_music_array, "mus_undynescary");
+
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
-    if (_included_chapters[3])
-        array_push(global.AP_included_music_array, "");
-
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "");
 
 
@@ -1074,115 +1104,115 @@ function AP_fill_randomized_music_struct()
 
     
     
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only) || (_included_chapters[0] && (global.AP_include_unused_music == 2)))
+    if (included_chapters_a[5] || (included_chapters[1] && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "thrash_rating.ogg"); // im choosing to use thrash_rating.ogg instead of flowery_skateboard.ogg for Ride the Board because it's the same song except it loops lol
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "");
 
 
@@ -1193,31 +1223,31 @@ function AP_fill_randomized_music_struct()
 
     
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
-    if ((_included_chapters[4] && _sideb))
+    if (included_chapters_b[5])
         array_push(global.AP_included_music_array, "");
 
 
@@ -1227,223 +1257,223 @@ function AP_fill_randomized_music_struct()
 
 
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
-    if (_undertale)
+    if (include_undertale)
         array_push(global.AP_included_music_array, "");
 
 
@@ -1464,43 +1494,43 @@ function AP_fill_randomized_music_struct()
 
 
 
-    if (_included_chapters[0] || (_included_chapters[1] && !_sideb_only) || _included_chapters[2])
+    if (included_chapters[1] || included_chapters_a[2] || included_chapters[3])
         array_push(global.AP_included_music_array, "man.ogg");
 
-    if (_included_chapters[2])
+    if (included_chapters[3])
         array_push(global.AP_included_music_array, "man_nes.ogg");
 
-    if (_included_chapters[3] && (global.AP_include_odd_music >= 1))
+    if (included_chapters[4] && (global.AP_include_odd_music >= 1))
         array_push(global.AP_included_music_array, "sadchord2.ogg");
         
-    if (_included_chapters[3])
+    if (included_chapters[4])
         array_push(global.AP_included_music_array, "man_2.ogg");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "dog_balloon.ogg");
 
-    if ((_included_chapters[4] && !_sideb_only))
+    if (included_chapters_a[5])
         array_push(global.AP_included_music_array, "deltarune_piano_collections_by_trevor_alan_gomes.ogg");
         
-    if ((_included_chapters[0] && (global.AP_include_unused_music >= 1)) || _included_chapters[2] || ((_included_chapters[1] || _included_chapters[3] || _included_chapters[4]) && (global.AP_include_unused_music == 2)))
+    if ((included_chapters[1] && (global.AP_include_unused_music >= 1)) || included_chapters[3] || ((included_chapters[2] || included_chapters[4] || included_chapters[5]) && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "dogcheck.ogg");
     
-    if ((_included_chapters[1] && (global.AP_include_unused_music >= 1)) || (_included_chapters[4] && (global.AP_include_unused_music == 2)))
+    if ((included_chapters[2] && (global.AP_include_unused_music >= 1)) || (included_chapters[5] && (global.AP_include_unused_music == 2)))
         array_push(global.AP_included_music_array, "alarm_titlescreen.ogg");
     
-    if (_included_chapters[2] && (global.AP_include_unused_music >= 1))
+    if (included_chapters[3] && (global.AP_include_unused_music >= 1))
         array_push(global.AP_included_music_array, "ch3_board3.ogg");
     
-    if (_included_chapters[3] && (global.AP_include_unused_music >= 1))
+    if (included_chapters[4] && (global.AP_include_unused_music >= 1))
         array_push(global.AP_included_music_array, "annoying_prophecy.ogg");
     
-    if (_included_chapters[4] && (global.AP_include_unused_music >= 1))
+    if (included_chapters[5] && (global.AP_include_unused_music >= 1))
         array_push(global.AP_included_music_array, "inukuma_wip.ogg");
 
-    if (_undertale && (global.AP_include_unused_music >= 1))
+    if (include_undertale && (global.AP_include_unused_music >= 1))
         array_push(global.AP_included_music_array, "mus_dance_of_dog.ogg");
     
-    if (_undertale && (global.AP_include_unused_music >= 1))
+    if (include_undertale && (global.AP_include_unused_music >= 1))
         array_push(global.AP_included_music_array, "mus_sigh_of_dog.ogg");
 
 
@@ -1509,17 +1539,17 @@ function AP_fill_randomized_music_struct()
 
     if (global.AP_randomize_music = 1 || global.AP_randomize_music = 2)
     {
-        random_set_seed(_seed);
-        _shuffled_list = scr_array_shuffle(global.AP_included_music_array);
+        random_setseed(seed);
+        shuffled_list = scr_array_shuffle(global.AP_included_music_array);
     }
     else
     {
-        _shuffled_list = global.AP_included_music_array;
+        shuffled_list = global.AP_included_music_array;
     }
     
     for (i = 0; i < array_length(global.AP_included_music_array); i++)
     {
-        variable_struct_set(global.AP_randomized_music_struct, global.AP_included_music_array[i], _shuffled_list[i])
+        variable_struct_set(global.AP_randomized_music_struct, global.AP_included_music_array[i], shuffled_list[i])
     }
 }
 

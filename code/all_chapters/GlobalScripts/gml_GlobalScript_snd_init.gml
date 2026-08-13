@@ -12,13 +12,17 @@ function snd_init(arg0)
     }
     else
     {
-        _string = string(arg0);
+        _string = audio_get_name(arg0);
     }
     
     if ((!scr_array_contains(_ignored, _string)) && (scr_array_contains(global.AP_included_music_array, _string)))
+    {
         _song = AP_get_random_song(_string);
+    }
     else
+    {
         _song = _string;
+    }
 
     var _song_parts = string_split(_song, ".");
         
@@ -29,15 +33,15 @@ function snd_init(arg0)
         else
             var dir = "mus/";
         
-        if (!variable_global_exists("launcher"))
-            global.launcher = 0;
-
-        if (global.launcher)
+        if (variable_global_exists("launcher"))
         {
-            if (scr_array_contains(_undertale, _song))
-                dir = working_directory + "../../Undertale/";
-            else
-                dir = working_directory + "../mus/";
+            if (global.launcher)
+            {
+                if (scr_array_contains(_undertale, _song))
+                    dir = working_directory + "../../Undertale/";
+                else
+                    dir = working_directory + "../mus/";
+            }
         }
 
         initsongvar = dir + string(_song);
