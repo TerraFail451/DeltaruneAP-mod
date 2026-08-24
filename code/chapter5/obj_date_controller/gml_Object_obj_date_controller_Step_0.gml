@@ -13,7 +13,7 @@
                 {
                     with (obj_archipelago_music_tracker)
                     {
-                        resume_song(snd_pink_stretch_2_troubled);
+                        resume_song("snd_pink_stretch_2_troubled");
                     }
                 }
 
@@ -37,7 +37,7 @@
                 {
                     with (obj_archipelago_music_tracker)
                     {
-                        resume_song(snd_pink_stretch_2_fixed);
+                        resume_song("snd_pink_stretch_2_fixed");
                     }
                 }
 

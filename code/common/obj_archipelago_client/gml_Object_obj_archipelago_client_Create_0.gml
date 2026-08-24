@@ -61,12 +61,6 @@ global.AP_skip_item_textboxes = false;
 global.AP_no_mantle = false;
 global.AP_better_odds = false;
 global.AP_have_starwalker = false;
-global.AP_randomize_music = 0;
-global.AP_music_source = 0;
-global.AP_include_odd_music = 0;
-global.AP_include_unused_music = 0;
-global.AP_included_music_array = [];
-global.AP_randomized_music_struct = {};
 global.AP_deathlink = false;
 global.AP_deathlink_protected = false;
 global.AP_deathlink_infos = {source: undefined, cause: undefined, time: undefined};
@@ -85,6 +79,26 @@ global.AP_multiworld = 0;
 global.AP_all_locations_ids = [];
 global.AP_remaining_locations = [];
 global.AP_connection_errors = undefined;
+global.AP_included_music_array = [];
+global.AP_randomized_music_struct = {};
+global.AP_randomize_music = 0;
+global.AP_custom_music = [];
+global.AP_music_sources = {
+    chapter_1: true,
+    chapter_2: true,
+    chapter_3: true,
+    chapter_4: true,
+    chapter_5: true,
+    chapter_2b: false,
+    chapter_4b: false,
+    chapter_5b: false,
+    undertale: false,
+    odd: false,
+    harsh: false,
+    dogcheck: false,
+    unused: false,
+    custom: false,
+};
 global.AP_colors = 
 {
     filler: "00FFFF",

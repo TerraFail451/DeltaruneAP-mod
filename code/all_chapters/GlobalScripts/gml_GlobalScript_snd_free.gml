@@ -36,12 +36,12 @@ function snd_free(arg0)
                 }
             }
 
-            if (variable_struct_exists(songs, other._xsong))
+            if (variable_struct_exists(songs, audio_get_name(other._xsong)))
             {
                 if (alarm_get(0) > 0)
                     alarm_set(0, -1);
                 
-                stop_song(other._xsong);
+                stop_song(audio_get_name(other._xsong));
             }
         }
     }

@@ -18,8 +18,8 @@ else
     troubled_song = snd_loop(random_song_1);
     with (obj_archipelago_music_tracker)
     {
-        add_song(snd_pink_stretch_2_troubled, other.troubled_song);
-        pause_song(snd_pink_stretch_2_troubled);
+        add_song("snd_pink_stretch_2_troubled", other.troubled_song);
+        pause_song("snd_pink_stretch_2_troubled");
     }
 }
 
@@ -33,8 +33,8 @@ else
     fixed_song = snd_loop(random_song_2);
     with (obj_archipelago_music_tracker)
     {
-        add_song(snd_pink_stretch_2_fixed, other.fixed_song);
-        pause_song(snd_pink_stretch_2_fixed);
+        add_song("snd_pink_stretch_2_fixed", other.fixed_song);
+        pause_song("snd_pink_stretch_2_fixed");
     }
 }
 /// END

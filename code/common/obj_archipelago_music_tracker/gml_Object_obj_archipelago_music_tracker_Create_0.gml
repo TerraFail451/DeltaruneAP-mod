@@ -20,12 +20,14 @@ add_song = function()
 add_timer = function()
 {
     var _timed_songs = [];
+    var _timer_name = (typeof(argument[0]) == "string" ? argument[0] : audio_get_name(argument[0]))
+    var _sound = (typeof(argument[0]) == "string" ? snd_init(_timer_name, 1) : argument[0])
 
     for (var i = 1; i < argument_count; i++)
         array_push(_timed_songs, argument[i]);
 
-    array_push(timers, snd_play(argument[0], 0))
-    variable_struct_set(timer_struct, argument[0], _timed_songs);
+    array_push(timers, snd_play(_sound, 0))
+    variable_struct_set(timer_struct, _timer_name, _timed_songs);
 }
 
 fade_out_song = function(arg0)
@@ -57,7 +59,10 @@ stop_song = function(arg0 = -4)
     var _songs = variable_struct_get(songs, killed_song);
 
     for (i = array_length(_songs) - 1; i >= 0; i--)
+    {
         audio_stop_sound(_songs[i]);
+        snd_free(_songs[i]);
+    }
     
     variable_struct_remove(songs, killed_song);
     killed_song = -4;
@@ -68,8 +73,12 @@ stop_timer = function()
     var _timed_songs = variable_struct_get(timer_struct, killed_timer_asset);
 
     for (i = array_length(_timed_songs) - 1; i >= 0; i--)
+    {
         audio_stop_sound(_timed_songs[i]);
+        snd_free(_timed_songs[i]);
+    }
 
+    snd_free(killed_timer_asset);
     array_delete(timers, killed_timer_index, 1);
     variable_struct_remove(timer_struct, killed_timer_asset);
     killed_timer_index = -4;

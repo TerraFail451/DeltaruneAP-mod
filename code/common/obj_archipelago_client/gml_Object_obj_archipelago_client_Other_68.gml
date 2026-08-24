@@ -98,14 +98,6 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_have_starwalker = data[i].slot_data.options.have_starwalker;
                     if (variable_struct_exists(data[i].slot_data.options, "better_odds"))
                         global.AP_better_odds = data[i].slot_data.options.better_odds;
-                    if (variable_struct_exists(data[i].slot_data.options, "randomize_music"))
-                        global.AP_randomize_music = data[i].slot_data.options.randomize_music;
-                    if (variable_struct_exists(data[i].slot_data.options, "music_source"))
-                        global.AP_music_source = data[i].slot_data.options.music_source;
-                    if (variable_struct_exists(data[i].slot_data.options, "include_odd_music"))
-                        global.AP_include_odd_music = data[i].slot_data.options.include_odd_music;
-                    if (variable_struct_exists(data[i].slot_data.options, "include_unused_music"))
-                        global.AP_include_unused_music = data[i].slot_data.options.include_unused_music;
                     if (variable_struct_exists(data[i].slot_data.options, "item_balancing"))
                         global.AP_balancing = data[i].slot_data.options.item_balancing;
                     if (variable_struct_exists(data[i].slot_data.options, "remove_starting_equipment"))
@@ -130,10 +122,31 @@ if (ds_map_exists(async_load, "buffer"))
                         global.AP_progressive_weapons.ralsei = data[i].slot_data.options.progressive_ralsei_weapons;
                     if (variable_struct_exists(data[i].slot_data.options, "progressive_noelle_weapons"))
                         global.AP_progressive_weapons.noelle = data[i].slot_data.options.progressive_noelle_weapons;
-
+                    
                     if (variable_struct_exists(data[i].slot_data.options, "include_unused_items"))
                         global.AP_include_unused_items = data[i].slot_data.options.include_unused_items;
 
+                    if (variable_struct_exists(data[i].slot_data.options, "randomize_music"))
+                        global.AP_randomize_music = data[i].slot_data.options.randomize_music;
+                    
+                    if (variable_struct_exists(data[i].slot_data.options, "music_sources"))
+                    {
+                        global.AP_music_sources.chapter_1 = array_contains(data[i].slot_data.options.music_sources, "Chapter 1");
+                        global.AP_music_sources.chapter_2 = array_contains(data[i].slot_data.options.music_sources, "Chapter 2");
+                        global.AP_music_sources.chapter_3 = array_contains(data[i].slot_data.options.music_sources, "Chapter 3");
+                        global.AP_music_sources.chapter_4 = array_contains(data[i].slot_data.options.music_sources, "Chapter 4");
+                        global.AP_music_sources.chapter_5 = array_contains(data[i].slot_data.options.music_sources, "Chapter 5");
+                        global.AP_music_sources.chapter_2b = array_contains(data[i].slot_data.options.music_sources, "Chapter 2B");
+                        global.AP_music_sources.chapter_4b = array_contains(data[i].slot_data.options.music_sources, "Chapter 4B");
+                        global.AP_music_sources.chapter_5b = array_contains(data[i].slot_data.options.music_sources, "Chapter 5B");
+                        global.AP_music_sources.undertale = array_contains(data[i].slot_data.options.music_sources, "UNDERTALE");
+                        global.AP_music_sources.odd = array_contains(data[i].slot_data.options.music_sources, "Odd Music");
+                        global.AP_music_sources.harsh = array_contains(data[i].slot_data.options.music_sources, "Harsh Music");
+                        global.AP_music_sources.dogcheck = array_contains(data[i].slot_data.options.music_sources, "Dogcheck Music");
+                        global.AP_music_sources.unused = array_contains(data[i].slot_data.options.music_sources, "Unused Music");
+                        global.AP_music_sources.custom = array_contains(data[i].slot_data.options.music_sources, "Custom Music");
+                    }
+                    
                     var path_settings = AP_get_save_folder_prefix()  + "settings.json"
 
                     if (file_exists(path_settings))
