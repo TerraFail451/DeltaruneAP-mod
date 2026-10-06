@@ -3,6 +3,11 @@
 /// REPLACE
     EVENT = 28;
     DARK_WAIT = 0;
+#if CHAPTER_3
+    
+    with (obj_border_controller)
+        hide_border();
+#endif
 }
 
 if (EVENT == 28)

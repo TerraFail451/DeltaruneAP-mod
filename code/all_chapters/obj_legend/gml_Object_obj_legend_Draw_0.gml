@@ -11,16 +11,17 @@
                     var trackpos = audio_sound_get_track_position(global.currentsong[1]);
                     var beginSil = 17.934;
                     var endSil = 19.612;
-    #if CHAPTER_3
+                    
+#if CHAPTER_3
                     if (trackpos >= beginSil && trackpos <= endSil)
                         dopause = true;
-    #else
+#else
                     if (trackpos >= beginSil && trackpos <= endSil)
                     {
                         scr_debug_print(string("trackpos=" + string(trackpos)));
                         dopause = true;
                     }
-    #endif
+#endif
                 }
                 else if (contimer >= 40)
                 {
@@ -38,11 +39,11 @@
                 }
             }
             
-    #if CHAPTER_2
+#if CHAPTER_2
             if (contimer == 100)
-    #else
+#else
             if (contimer >= 100)
-    #endif
+#endif
 /// CODE
             if (contimer >= 40)
             {

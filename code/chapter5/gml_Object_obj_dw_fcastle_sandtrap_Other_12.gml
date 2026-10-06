@@ -46,16 +46,8 @@
         
         with (obj_astream)
         {
-            if (global.AP_ost_shuffle)
-            {
-                if (string_pos("cowboy", variable_struct_get(global.AP_ost_mapping, songname)))
-                    scr_doom(id, 31);
-            }
-            else
-            {
-                if (string_pos("cowboy", songname))
-                    scr_doom(id, 31);
-            }
+            if (string_pos("cowboy", songname))
+                scr_doom(id, 31);
         }
     });
 /// CODE
@@ -86,16 +78,8 @@
         
         with (obj_astream)
         {
-            if (global.AP_ost_shuffle)
-            {
-                if (string_pos("cowboy", variable_struct_get(global.AP_ost_mapping, songname)))
-                    scr_doom(id, 31);
-            }
-            else
-            {
-                if (string_pos("cowboy", songname))
-                    scr_doom(id, 31);
-            }
+            if (string_pos("cowboy", songname))
+                scr_doom(id, 31);
         }
     });
 /// CODE
