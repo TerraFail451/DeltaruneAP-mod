@@ -27,7 +27,7 @@
         {
             if (global.AP_ost_shuffle)
             {
-                if (string_pos("cowboy", variable_struct_get(global.AP_ost_mapping, songname)))
+                if (songname = variable_struct_get(global.AP_ost_mapping, "meeting_flower_cowboy.ogg"))
                     scr_doom(id, 31);
             }
             else
@@ -59,7 +59,7 @@
         {
             if (global.AP_ost_shuffle)
             {
-                if (string_pos("cowboy", variable_struct_get(global.AP_ost_mapping, songname)))
+                if (songname = variable_struct_get(global.AP_ost_mapping, "meeting_flower_cowboy.ogg"))
                     scr_doom(id, 31);
             }
             else
@@ -91,7 +91,7 @@
         {
             if (global.AP_ost_shuffle)
             {
-                if (string_pos("cowboy", variable_struct_get(global.AP_ost_mapping, songname)))
+                if (songname = variable_struct_get(global.AP_ost_mapping, "meeting_flower_cowboy.ogg"))
                     scr_doom(id, 31);
             }
             else
