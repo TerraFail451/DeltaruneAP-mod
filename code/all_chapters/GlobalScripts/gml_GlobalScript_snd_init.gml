@@ -18,9 +18,9 @@ function snd_init(arg0, arg1 = true)
 
   if (scr_debug())
   {
-    if (file_exists(debug.snd_init))
+    if (file_exists("debug.snd_init"))
     {
-      var _file = file_text_open_read(debug.song);
+      var _file = file_text_open_read("debug.snd_init");
       var _line = file_text_readln(_file);
 
       if (_line != "")

@@ -39,7 +39,7 @@
     {
         if (global.AP_ost_shuffle)
         {
-            if (musname == variable_struct_get(global.AP_ost_mapping, "cliff.ogg") || musname == variable_struct_get(global.AP_ost_mapping, "rudebuster_boss.ogg") || musname == variable_struct_get(global.AP_ost_mapping, "meeting_flower.ogg") || variable_struct_get(global.AP_ost_mapping, musname == "Flowerman_Arrangement.ogg"))
+            if (musname == variable_struct_get(global.AP_ost_mapping, "cliff.ogg") || musname == variable_struct_get(global.AP_ost_mapping, "rudebuster_boss.ogg") || musname == variable_struct_get(global.AP_ost_mapping, "meeting_flower.ogg") || musname == variable_struct_get(global.AP_ost_mapping, "Flowerman_Arrangement.ogg"))
             {
                 suny = 1;
             }

@@ -1371,7 +1371,7 @@
                 if (global.submenucoord[30] == 1)
                     global.submenu = 32;
 
-                // Music Volume
+                // SFX Volume
                 if (global.submenucoord[30] == 2)
                     global.submenu = 31;
                 
@@ -1444,8 +1444,30 @@
 
                 }
 
-                // Deathlink
+                // Border
                 if (global.submenucoord[30] == 10)
+                {
+                    if (global.chapter == 2)
+                    {
+                        if (room == room_dw_mansion_krisroom && global.plot <= 100)
+                            global.disable_border = true;
+                    }
+                    
+                    if (global.disable_border || !window_get_fullscreen())
+                    {
+                        selectnoise = 0;
+                        snd_play(snd_cantselect)
+                    }
+                    else
+                    {
+                        global.submenu = 36;
+                        check_border = 1;
+                        border_select = 0;
+                    }
+                }
+
+                // Deathlink
+                if (global.submenucoord[30] == 11)
                 {
                     global.AP_deathlink = !global.AP_deathlink;
                     ini_open(AP_get_save_folder_prefix() + "settings_override.ini");
@@ -1455,7 +1477,7 @@
                 }
 
                 // Damagelink
-                if (global.submenucoord[30] == 11)
+                if (global.submenucoord[30] == 12)
                 {
                     global.AP_damagelink = !global.AP_damagelink;
                     ini_open(AP_get_save_folder_prefix() + "settings_override.ini");
@@ -1465,7 +1487,7 @@
                 }
 
                 // Item balancing
-                if (global.submenucoord[30] == 12)
+                if (global.submenucoord[30] == 13)
                 {
                     global.AP_balancing = !global.AP_balancing;
                     ini_open(AP_get_save_folder_prefix() + "settings_override.ini");
@@ -1474,7 +1496,7 @@
                 }
 
                 // OST Shuffle
-                if (global.submenucoord[30] == 13)
+                if (global.submenucoord[30] == 14)
                 {
                     AP_ost_shuffle_toggle();
                     ini_open(AP_get_save_folder_prefix() + "settings_override.ini");
@@ -1503,7 +1525,7 @@
                   global.submenu = 34;
                 }
 
-                // Return to chapter select
+                // Return to title
                 if (global.submenucoord[30] == 19)
                 {
                   global.submenu = 34;
@@ -1640,6 +1662,14 @@
                 lastfade.image_xscale *= 3;
                 lastfade.image_yscale *= 2;
                 lastfade.depth = -900000;
+
+                if (global.chapter > 2)
+                {
+                    with (obj_border_controller)
+                        hide_border(0.05);
+                }
+                else if (global.chapter == 2)
+                    global.chapter_return = 2;
             }
             
             if (global.submenucoord[34] >= 50)
@@ -1647,5 +1677,185 @@
                   scr_chapterswitch(0);
                 else
                   game_restart_true();
+        }
+/// END
+
+/// REPLACE
+            if (controls_quitmenu == 1)
+            {
+                selectnoise = 1;
+                onebuffer = 2;
+                twobuffer = 2;
+#if CHAPTER_3 || CHAPTER_5
+                ini_open("keyconfig_" + string(global.filechoice) + ".ini");
+#else
+                ossafe_ini_open("keyconfig_" + string(global.filechoice) + ".ini");
+#endif
+                
+                for (var i = 0; i < 10; i += 1)
+                    ini_write_real("KEYBOARD_CONTROLS", string(i), global.input_k[i]);
+                
+                for (var i = 0; i < 10; i += 1)
+                    ini_write_real("GAMEPAD_CONTROLS", string(i), global.input_g[i]);
+                
+                ini_write_real("SHOULDERLB_REASSIGN", "SHOULDERLB_REASSIGN", obj_gamecontroller.gamepad_shoulderlb_reassign);
+#if CHAPTER_1 || CHAPTER_2
+                ossafe_ini_close();
+                ossafe_savedata_save();
+#elsif CHAPTER_4
+                ossafe_ini_close();
+#else
+                ini_close();
+#endif
+                controls_quitmenu = 0;
+                control_select_con = 0;
+                global.submenucoord[35] = 0;
+                global.submenu = 30;
+            }
+        }
+        
+        if (global.is_console && global.submenu == 36)
+        {
+            if (right_p())
+            {
+                if (selected_border < (array_length_1d(border_options) - 1))
+                {
+                    selected_border++;
+                    check_border = 1;
+                }
+            }
+            
+            if (left_p())
+            {
+                if (selected_border > 0)
+                {
+                    selected_border--;
+                    check_border = 1;
+                }
+            }
+            
+            if (check_border == 1)
+            {
+                var _border = border_options[selected_border];
+                
+#if CHAPTER_1
+                if (_border == "None" || _border == "なし")
+#else
+                if (_border == border_options[2])
+#endif
+                    scr_enable_screen_border(false);
+                else
+                    scr_enable_screen_border(true);
+                
+                global.screen_border_id = border_options[selected_border];
+#if CHAPTER_3 || CHAPTER_4
+                global.tempflag[95] = 1;
+                
+                with (obj_border_controller)
+                    init_border();
+                
+#endif
+                check_border = 0;
+            }
+            
+            if (button1_p() && onebuffer < 0)
+                border_select = 1;
+            
+            if (button2_p() && twobuffer < 0)
+                border_select = 1;
+            
+            if (border_select == 1)
+            {
+                onebuffer = 2;
+                twobuffer = 2;
+                ossafe_ini_open("keyconfig_" + string(global.filechoice) + ".ini");
+                ini_write_string("BORDER", "TYPE", global.screen_border_id);
+                ossafe_ini_close();
+                ossafe_savedata_save();
+                control_select_con = 0;
+                global.submenu = 30;
+            }
+        }
+/// CODE
+            if (controls_quitmenu == 1)
+            {
+                selectnoise = 1;
+                onebuffer = 2;
+                twobuffer = 2;
+                ini_open("true_config.ini");
+                
+                for (var i = 0; i < 10; i += 1)
+                    ini_write_real("KEYBOARD_CONTROLS", string(i), global.input_k[i]);
+                
+                for (var i = 0; i < 10; i += 1)
+                    ini_write_real("GAMEPAD_CONTROLS", string(i), global.input_g[i]);
+                
+                ini_write_real("SHOULDERLB_REASSIGN", "SHOULDERLB_REASSIGN", obj_gamecontroller.gamepad_shoulderlb_reassign);
+                ini_close();
+                controls_quitmenu = 0;
+                control_select_con = 0;
+                global.submenucoord[35] = 0;
+                global.submenu = 30;
+            }
+        }
+        
+        if (global.submenu == 36)
+        {
+            if (right_p())
+            {
+                if (selected_border < (array_length_1d(border_options) - 1))
+                {
+                    selected_border++;
+                    check_border = 1;
+                }
+            }
+            
+            if (left_p())
+            {
+                if (selected_border > 0)
+                {
+                    selected_border--;
+                    check_border = 1;
+                }
+            }
+            
+            if (check_border == 1)
+            {
+                var _border = border_options[selected_border];
+                
+                if (_border == border_options[2])
+                    scr_enable_screen_border(false);
+                else
+                    scr_enable_screen_border(true);
+                
+                global.screen_border_id = border_options[selected_border];
+
+                if (global.chapter == 3 || global.chapter == 4)
+                {
+                    global.tempflag[95] = 1;
+                    
+                    with (obj_border_controller)
+                        init_border();
+                }
+
+                check_border = 0;
+            }
+            
+            if (button1_p() && onebuffer < 0)
+                border_select = 1;
+            
+            if (button2_p() && twobuffer < 0)
+                border_select = 1;
+            
+            if (border_select == 1)
+            {
+                onebuffer = 2;
+                twobuffer = 2;
+                ini_open("true_config.ini");
+                ini_write_string("BORDER", "TYPE", global.screen_border_id);
+                ini_close();
+                control_select_con = 0;
+                global.submenu = 30;
+            }
         }
 /// END
