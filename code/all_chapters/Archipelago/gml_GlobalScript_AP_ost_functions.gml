@@ -140,22 +140,25 @@ function AP_ost_shuffle_toggle()
     global.AP_ost_shuffle = !global.AP_ost_shuffle;
     
 #if CHAPTER_4
-    if (!variable_struct_exists(global.AP_ost_mapping, song) || song == "" && !i_ex(obj_dw_church_worshiproom))
-#else
-    if (!variable_struct_exists(global.AP_ost_mapping, song) || song == "")
-#endif
+    if (song == "" && !i_ex(obj_dw_church_worshiproom) && !i_ex(obj_music_worship))
         exit;
+    
+#else
+    if (song == "")
+        exit;
+    
+#endif
+#if CHAPTER_1 || CHAPTER_5
+    if (i_ex(obj_fieldmuslogo))
+        exit;
+    
+#endif
+    if (!variable_struct_exists(global.AP_ost_mapping, song))
+        exit;
+    
     snd_free_all();
     
-#if CHAPTER_1
-    if (i_ex(obj_fieldmuslogo))
-    {
-        global.currentsong[0] = snd_init("field_of_hopes.ogg", false);
-        global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
-        stop = true;
-    }
-    
-#elsif CHAPTER_2
+#if CHAPTER_2
     if (i_ex(obj_musicer_cyber))
     {
         instance_destroy(obj_musicer_cyber);
@@ -164,14 +167,14 @@ function AP_ost_shuffle_toggle()
     }
     
 #elsif CHAPTER_4
-    if (i_ex(obj_dw_church_worshiproom))
+    if (i_ex(obj_dw_church_worshiproom) && i_ex(obj_music_worship))
     {
         with (obj_dw_church_worshiproom)
         {
             instance_destroy(music);
             music = instance_create(x, y, obj_music_worship);
-            stop = true;
         }
+        stop = true;
     }
     
     if (i_ex(obj_musicer_dw_church))
@@ -197,17 +200,10 @@ function AP_ost_shuffle_toggle()
     {
         if (obj_musicer_room.mysong == "cliff.ogg")
         {
-            instance_destroy(obj_musicer_dw_church);
-            instance_create(0, 0, obj_musicer_dw_church);
+            instance_destroy(obj_musicer_room);
+            instance_create(0, 0, obj_musicer_room);
             stop = true;
         }
-    }
-    
-    if (i_ex(obj_fieldmuslogo))
-    {
-        global.currentsong[0] = snd_init("field_of_hopes_insaneintherain_intro.ogg", false);
-        global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
-        stop = true;
     }
     
 #endif

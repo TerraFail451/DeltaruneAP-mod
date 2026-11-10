@@ -50,6 +50,7 @@
 /// END
 
 /// AFTER
+    c_msgnextloc("\\Eb* ..^1. sure^1, Kris^1. If you want to./%", "obj_town_mid_ferris_slash_Step_0_gml_451_0");
     c_talk_wait();
     c_mus2("volume", 0, 30);
 /// CODE
@@ -117,6 +118,7 @@
 /// END
 
 /// AFTER
+    c_msgsetloc(0, "\\E9* See ya in a minute^1, Kris!/%", "obj_town_mid_ferris_slash_Step_0_gml_849_0");
     c_talk_wait();
     c_mus2("volume", 0, 30);
 /// CODE

@@ -1,6 +1,7 @@
 /// PATCH
 
 /// AFTER
+        c_walk(room_width + 40, 2, 90);
         c_mus2("volume", 0, 90);
 /// CODE
         if (global.AP_ost_shuffle)

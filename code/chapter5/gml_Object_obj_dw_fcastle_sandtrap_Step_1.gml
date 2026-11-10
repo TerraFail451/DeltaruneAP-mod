@@ -12,7 +12,7 @@
         with (obj_astream)
         {
             if (global.AP_ost_shuffle)
-                var found = (songname == variable_struct_get(global.AP_ost_mapping, "meeting_flower_cowboy.ogg"));
+                var found = (origsongname == "meeting_flower_cowboy.ogg");
             else
                 var found = string_pos("cowboy", songname);
             
