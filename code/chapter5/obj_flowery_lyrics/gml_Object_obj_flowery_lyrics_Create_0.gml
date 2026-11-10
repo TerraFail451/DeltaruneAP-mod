@@ -108,14 +108,16 @@ load_song_data = function()
         case "ch3_karaoke_full.ogg":
         case "ch3_karaoke_no_guitar.ogg":
             beattime = [];
-            lyric_add(15.92, stringset("WHEN THE DE-MON HEART IS CRY-ING"));
-            lyric_add(18.26, stringset("AND THE BLOOD IS GUSH-ING BRIGHT"));
-            lyric_add(20.87, stringset("RAISE UP YOUR BAT FOR THE BUR-NING FIGHT"));
-            lyric_add(24.4, stringset("WHEN YOUR HOPE IS SLOW-LY DY-ING"));
-            lyric_add(26.6, stringset("AND YOUR FU-TURE'S LOST ITS RIGHTS"));
-            lyric_add(29.34, stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT"));
+            randomise();
+            var random = irandom(3);
+            lyric_add(15.92, random == 3 ? stringset("WHEN THE HAP-PY HEART IS SMIL-ING") : stringset("WHEN THE DE-MON HEART IS CRY-ING"));
+            lyric_add(18.26, random == 3 ? stringset("AND THE SUN IS SHIN-ING BRIGHT") : stringset("AND THE BLOOD IS GUSH-ING BRIGHT"));
+            lyric_add(20.87, random == 3 ? stringset("RAISE UP YOUR HAT FOR A FU-NNY SIGHT") : stringset("RAISE UP YOUR BAT FOR THE BUR-NING FIGHT"));
+            lyric_add(24.4, random == 3 ? stringset("WHEN YOUR CAT IS SLOW-LY SIGH-ING") : stringset("WHEN YOUR HOPE IS SLOW-LY DY-ING"));
+            lyric_add(26.6, random == 3 ? stringset("AND ITS FUR IS LOOK-ING WHITE") : stringset("AND YOUR FU-TURE'S LOST ITS RIGHTS"));
+            lyric_add(29.34, random == 3 ? stringset("MAKE SURE TO CHECK YOUR MAT FOR MITES") : stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT"));
             lyric_add(33.26, "");
-            lyric_add(33.53, stringset("LET'S KNOCK EM DEAD IN-TO THE NIGHT"));
+            lyric_add(33.53, random == 3 ? stringset("LET'S GET YOUR FRIENDS AND FLY A KITE") : stringset("LET'S KNOCK EM DEAD IN-TO THE NIGHT"));
             lyric_add(37.66, "");
             lyric_add(100.16, stringset("Come fol-low me in-to the dark"));
             lyric_add(102.77, stringset("With your heart as the ark"));
@@ -132,13 +134,13 @@ load_song_data = function()
             lyric_add(129.76, stringset("Which shall guide you the way,"));
             lyric_add(132.37, stringset("through the waves"));
             lyric_add(133.81, "");
-            lyric_add(149.48, stringset("WHEN THE DE-MON HEART IS CRY-ING"));
-            lyric_add(151.73, stringset("AND THE BLOOD IS GUSH-ING BRIGHT"));
-            lyric_add(154.42, stringset("RAISE UP YOUR BAT FOR THE BUR-NING FIGHT"));
-            lyric_add(157.95, stringset("WHEN YOUR HOPE IS SLOW-LY DY-ING"));
-            lyric_add(160.08, stringset("AND YOUR FU-TURE'S LOST ITS RIGHTS"));
-            lyric_add(162.8, stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT"));
-            lyric_add(166.95, stringset("LET'S KNOCK EM DEAD IN-TO THE NIGHT"));
+            lyric_add(149.48, random == 3 ? stringset("WHEN THE SLEE-PY DUCK IS CRY-ING") : stringset("WHEN THE DE-MON HEART IS CRY-ING"));
+            lyric_add(151.73, random == 3 ? stringset("AND THE MOM IS KISS GOOD-NIGHT") : stringset("AND THE BLOOD IS GUSH-ING BRIGHT"));
+            lyric_add(154.42, random == 3 ? stringset("RAISE UP YOUR BAT FOR BASE-BALL DE-LIGHT") : stringset("RAISE UP YOUR BAT FOR THE BUR-NING FIGHT"));
+            lyric_add(157.95, random == 3 ? stringset("WHEN YOUR PAN-CAKE'S SLOWLY FRY-ING") : stringset("WHEN YOUR HOPE IS SLOW-LY DY-ING"));
+            lyric_add(160.08, random == 3 ? stringset("AND YOUR FU-TURE'S REA-LLY BRIGHT") : stringset("AND YOUR FU-TURE'S LOST ITS RIGHTS"));
+            lyric_add(162.8, random == 3 ? stringset("BRING EX-TRA SMORES TO THE CAMP-SITE") : stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT"));
+            lyric_add(166.95, random == 3 ? stringset("I BET MY FRIENDS STILL WANT A BITE") : stringset("LET'S KNOCK EM DEAD IN-TO THE NIGHT"));
             lyric_add(172, "");
             break;
         

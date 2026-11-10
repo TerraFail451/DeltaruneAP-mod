@@ -113,26 +113,58 @@ switch (songname)
     
     case "ch3_karaoke_full.ogg":
     case "ch3_karaoke_no_guitar.ogg":
-        if (timer == 478)
-            lyric = stringset("WHEN THE DEMON HEART IS CRYING");
+        if (timer == 1)
+        (
+            randomise();
+            random = irandom(3);
+        )
         
-        if (timer == 548)
-            lyric = stringset("AND THE BLOOD IS GUSHING BRIGHT");
+        if (random == 3)
+        {
+            if (timer == 478)
+                lyric = stringset("WHEN THE HAPPY HEART IS SMILING");
+            
+            if (timer == 548)
+                lyric = stringset("AND THE SUN IS SHINING BRIGHT");
 
-        if (timer == 626)
-            lyric = stringset("RAISE UP YOUR BAT FOR THE BURNING FIGHT");
+            if (timer == 626)
+                lyric = stringset("RAISE UP YOUR HAT FOR A FUNNY SIGHT");
 
-        if (timer == 732)
-            lyric = stringset("WHEN YOUR HOPE IS SLOWLY DYING");
+            if (timer == 732)
+                lyric = stringset("WHEN YOUR CAT IS SLOWLY SIGHING");
 
-        if (timer == 798)
-            lyric = stringset("AND YOUR FUTURE'S LOST ITS RIGHTS");
+            if (timer == 798)
+                lyric = stringset("AND ITS FUR IS LOOKING WHITE");
 
-        if (timer == 880)
-            lyric = stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT");
+            if (timer == 880)
+                lyric = stringset("MAKE SURE TO CHECK YOUR MAT FOR MITES");
 
-        if (timer == 1006)
-            lyric = stringset("LET'S KNOCK EM DEAD INTO THE NIGHT");
+            if (timer == 1006)
+                lyric = stringset("LET'S GET YOUR FRIENDS AND FLY A KITE");
+        }
+        else
+        {
+            if (timer == 478)
+                lyric = stringset("WHEN THE DEMON HEART IS CRYING");
+            
+            if (timer == 548)
+                lyric = stringset("AND THE BLOOD IS GUSHING BRIGHT");
+            
+            if (timer == 626)
+                lyric = stringset("RAISE UP YOUR BAT FOR THE BURNING FIGHT");
+            
+            if (timer == 732)
+                lyric = stringset("WHEN YOUR HOPE IS SLOWLY DYING");
+            
+            if (timer == 798)
+                lyric = stringset("AND YOUR FUTURE'S LOST ITS RIGHTS");
+            
+            if (timer == 880)
+                lyric = stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT");
+            
+            if (timer == 1006)
+                lyric = stringset("LET'S KNOCK EM DEAD INTO THE NIGHT");
+        }
 
         if (timer == 1130)
             textalpha = 0;
