@@ -1,5 +1,9 @@
 /// PATCH
 
+/// PREPEND
+global.customflags[global.custom_flags_indexes.AP_music_playing] = 0;
+/// END
+
 /// REPLACE
 if (!snd_is_playing(global.currentsong[1]))
 {

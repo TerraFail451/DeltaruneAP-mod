@@ -1,4 +1,6 @@
 /// IMPORT
+global.customflags[global.custom_flags_indexes.AP_music_playing] = 0;
+
 if (mysong == "cliff.ogg" && global.AP_ost_shuffle)
 {
     if (!snd_is_playing(global.currentsong[1]))
