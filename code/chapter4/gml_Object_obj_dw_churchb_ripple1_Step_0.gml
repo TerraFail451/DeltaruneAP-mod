@@ -13,5 +13,5 @@
         room_goto(room_dw_churchb_ripplepost);
 /// CODE
         if (global.ost_shuffle && variable_struct_get(global.AP_ost_mapping, "second_church.ogg") != "second_church.ogg")
-                snd_free_all();
+            snd_free_all();
 /// END

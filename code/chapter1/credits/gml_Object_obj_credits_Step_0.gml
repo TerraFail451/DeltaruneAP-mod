@@ -114,10 +114,10 @@ switch (songname)
     case "ch3_karaoke_full.ogg":
     case "ch3_karaoke_no_guitar.ogg":
         if (timer == 1)
-        (
+        {
             randomise();
             random = irandom(3);
-        )
+        }
         
         if (random == 3)
         {
