@@ -10,7 +10,7 @@
     if (beats >= 32)
         fadingOut = true;
 /// CODE
-    /// change song right before the last note lands, otherwise you hear the drop for a single frame before it changes
+    // change song right before the last note lands, otherwise you hear the drop for a single frame before it changes
     if (global.AP_ost_shuffle && soundTimeStep >= 16.39)
     {
         mus_volume(global.currentsong[1], 0, 0);
