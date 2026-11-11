@@ -17,6 +17,6 @@
         instance_create(0, 0, obj_musicer_cyber);
         
         if (mus_get_name(global.AP_music[0]) == "cyber.ogg")
-            audio_sound_set_track_position(global.AP_music[1], soundTimeStep);
+            audio_sound_set_track_position(global.AP_music[1], audio_sound_get_track_position(global.currentsong[1]));
     }
 /// END
