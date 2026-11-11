@@ -1,5 +1,6 @@
 /// IMPORT
 init = false;
+init_lyrics = false;
 current_lyric = "";
 timed_lyric = "";
 lyric_count = 0;
@@ -36,9 +37,6 @@ lyrics = [];
 quickstart = false;
 wordcount = 0;
 
-if (i_ex(obj_flowery_enemy))
-    load_song_data();
-
 lyric_add = function(arg0, arg1)
 {
     array_push(lyric_time, arg0 - 0.02);
@@ -51,20 +49,19 @@ load_song_data = function()
     lyric_time = [];
     lyrics = [];
     lyric_count = 0;
-
+    
     if (global.AP_ost_shuffle)
     {
         songname = mus_get_name(global.AP_music[0]);
         song_length = audio_sound_length(global.AP_music[0]);
     }
-
+    
     AP_load_song(songname);
     lyric_add(0, "");
-
+    
     switch (songname)
     {
         case "Flowerman_Arrangement.ogg":
-            beattime = [48.19, 48.56, 48.94, 49.31, 49.67, 50.04, 50.42, 50.79, 51.17, 51.54, 51.92, 52.29, 52.67, 53.04, 53.42, 53.79, 54.17, 54.54, 54.92, 55.29, 55.67, 56.04, 56.42, 56.79, 57.17, 57.54, 57.92, 58.29, 58.5, 58.78, 59.25, 59.53, 60.17, 60.54, 60.92, 61.29, 61.67, 62.04, 62.42, 62.79, 63.17, 63.54, 63.92, 64.29, 64.67, 65.04, 65.42, 65.79, 66.17, 66.54, 66.92, 67.29, 67.67, 68.04, 68.42, 68.79, 69, 69.09, 69.19, 69.28, 69.38, 69.47, 69.56, 69.66, 69.75, 69.84, 69.94, 70.03, 70.12, 70.22, 70.31, 70.41, 70.5, 71.25, 168.19, 168.56, 168.94, 169.31, 169.67, 170.04, 170.42, 170.79, 171.17, 171.54, 171.92, 172.29, 172.67, 173.04, 173.42, 173.79, 174.17, 174.54, 174.92, 175.29, 175.67, 176.04, 176.42, 176.79, 177.17, 177.54, 177.92, 178.29, 178.5, 178.78, 179.25, 179.53, 180.17, 180.54, 180.92, 181.29, 181.67, 182.04, 182.42, 182.79, 183.17, 183.54, 183.92, 184.29, 184.67, 185.04, 185.42, 185.79, 186.17, 186.54, 186.92, 187.29, 187.67, 188.04, 188.42, 188.79, 189, 189.09, 189.19, 189.28, 189.38, 189.47, 189.56, 189.66, 189.75, 189.84, 189.94, 190.03, 190.12, 190.22, 190.31, 190.41, 190.5];
             lyric_add(24, stringsetloc("Ten feet twen-ty the Flow-er Man", "obj_flowery_lyrics_slash_Create_0_gml_53_0"));
             lyric_add(27.38, stringsetloc("Is wai-ting for the touch of his hand", "obj_flowery_lyrics_slash_Create_0_gml_54_0"));
             lyric_add(30.75, stringsetloc("Straight-en-ing pe-tals out with-out a plan", "obj_flowery_lyrics_slash_Create_0_gml_55_0"));
@@ -103,11 +100,11 @@ load_song_data = function()
             lyric_add(187.12, stringsetloc("The life for-ev-er for", "obj_flowery_lyrics_slash_Create_0_gml_88_0"));
             lyric_add(190.5, stringsetloc("Flow-ers", "obj_flowery_lyrics_slash_Create_0_gml_89_0"));
             lyric_add(192, "");
+            beattime = [48.19, 48.56, 48.94, 49.31, 49.67, 50.04, 50.42, 50.79, 51.17, 51.54, 51.92, 52.29, 52.67, 53.04, 53.42, 53.79, 54.17, 54.54, 54.92, 55.29, 55.67, 56.04, 56.42, 56.79, 57.17, 57.54, 57.92, 58.29, 58.5, 58.78, 59.25, 59.53, 60.17, 60.54, 60.92, 61.29, 61.67, 62.04, 62.42, 62.79, 63.17, 63.54, 63.92, 64.29, 64.67, 65.04, 65.42, 65.79, 66.17, 66.54, 66.92, 67.29, 67.67, 68.04, 68.42, 68.79, 69, 69.09, 69.19, 69.28, 69.38, 69.47, 69.56, 69.66, 69.75, 69.84, 69.94, 70.03, 70.12, 70.22, 70.31, 70.41, 70.5, 71.25, 168.19, 168.56, 168.94, 169.31, 169.67, 170.04, 170.42, 170.79, 171.17, 171.54, 171.92, 172.29, 172.67, 173.04, 173.42, 173.79, 174.17, 174.54, 174.92, 175.29, 175.67, 176.04, 176.42, 176.79, 177.17, 177.54, 177.92, 178.29, 178.5, 178.78, 179.25, 179.53, 180.17, 180.54, 180.92, 181.29, 181.67, 182.04, 182.42, 182.79, 183.17, 183.54, 183.92, 184.29, 184.67, 185.04, 185.42, 185.79, 186.17, 186.54, 186.92, 187.29, 187.67, 188.04, 188.42, 188.79, 189, 189.09, 189.19, 189.28, 189.38, 189.47, 189.56, 189.66, 189.75, 189.84, 189.94, 190.03, 190.12, 190.22, 190.31, 190.41, 190.5];
             break;
         
         case "ch3_karaoke_full.ogg":
         case "ch3_karaoke_no_guitar.ogg":
-            beattime = [];
             randomise();
             var random = irandom(3);
             lyric_add(15.92, random == 3 ? stringset("WHEN THE HAP-PY HEART IS SMIL-ING") : stringset("WHEN THE DE-MON HEART IS CRY-ING"));
@@ -142,6 +139,7 @@ load_song_data = function()
             lyric_add(162.8, random == 3 ? stringset("BRING EX-TRA SMORES TO THE CAMP-SITE") : stringset("RAISE UP YOUR BAT AND FACE THE FRIGHT"));
             lyric_add(166.95, random == 3 ? stringset("I BET MY FRIENDS STILL WANT A BITE") : stringset("LET'S KNOCK EM DEAD IN-TO THE NIGHT"));
             lyric_add(172, "");
+            beattime = [];
             break;
         
         case "dontforget.ogg":
@@ -161,13 +159,13 @@ load_song_data = function()
             lyric_add(36.2, stringset("I'm with you in the dark"));
             lyric_add(43.33, "");
             break;
-
+        
         default:
             notetime = [];
             noteend = [];
             maxnote = 0;
             break;
     }
-
+    
     beat_count = array_length(beattime);
 };

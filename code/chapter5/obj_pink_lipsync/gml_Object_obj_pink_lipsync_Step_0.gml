@@ -1,12 +1,24 @@
 /// PATCH
 
 /// REPLACE
-        if (noteindex < maxnote && noteend[noteindex - 1] == notetime[noteindex] && noteanim[noteindex] == 0)
-/// CODE
-        if (noteindex < maxnote && noteend[noteindex - 1] == notetime[noteindex])
-/// END
+if (safety_timer >= 30)
+{
+    trackpos += (delta_time / 1000000);
+    
+    if (trackpos >= song_length)
+    {
+        trackpos -= song_length;
+        noteindex = 0;
+    }
+}
+else if (trackpos < last_trackpos && safety_timer == 0)
+{
+    noteindex = 0;
+}
 
-/// REPLACE
+while (noteindex < maxnote && !singing && trackpos > noteend[noteindex])
+    noteindex++;
+
 if (trackpos < ftime[0] || (trackpos > ftime[1] && trackpos < ftime[2]) || trackpos > ftime[3])
 {
     lipsync = false;
@@ -18,63 +30,54 @@ else if (!lipsync)
     singing = false;
 }
 /// CODE
-switch (array_length(ftime))
+if (safety_timer >= 30)
 {
-    case 0:
+    trackpos += (delta_time / 1000000);
+    
+    if (trackpos >= song_length)
+    {
+        trackpos -= song_length;
+        noteindex = 0;
+        findex = 0;
+    }
+}
+else if (trackpos < last_trackpos && safety_timer == 0)
+{
+    noteindex = 0;
+    findex = 0;
+}
+
+while (noteindex < maxnote && !singing && trackpos > noteend[noteindex])
+    noteindex++;
+
+while (findex < fcount && trackpos > fend[findex])
+    findex++;
+
+if (fcount > 0)
+{
+    if (trackpos < ftime[findex] || trackpos > fend[findex])
+    {
         lipsync = false;
         singing = true;
-        break;
-    
-    case 2:
-        if (trackpos < ftime[0] || trackpos > ftime[1])
-        {
-            lipsync = false;
-            singing = true;
-        }
-        else if (!lipsync)
-        {
-            lipsync = true;
-            singing = false;
-        }
-        break;
+    }
+    else if (!lipsync)
+    {
+        lipsync = true;
+        singing = false;
+    }
 
-    case 4:
-        if (trackpos < ftime[0] || (trackpos > ftime[1] && trackpos < ftime[2]) || trackpos > ftime[3])
-        {
-            lipsync = false;
-            singing = true;
-        }
-        else if (!lipsync)
-        {
-            lipsync = true;
-            singing = false;
-        }
-        break;
-
-    case 6:
-        if (trackpos < ftime[0] || (trackpos > ftime[1] && trackpos < ftime[2]) || (trackpos > ftime[3] && trackpos < ftime[4]) || trackpos > ftime[5])
-        {
-            lipsync = false;
-            singing = true;
-        }
-        else if (!lipsync)
-        {
-            lipsync = true;
-            singing = false;
-        }
-        break;
-
-    case 8:
-        if (trackpos < ftime[0] || (trackpos > ftime[1] && trackpos < ftime[2]) || (trackpos > ftime[3] && trackpos < ftime[4]) || (trackpos > ftime[5] && trackpos < ftime[6]) || trackpos > ftime[7])
-        {
-            lipsync = false;
-            singing = true;
-        }
-        else if (!lipsync)
-        {
-            lipsync = true;
-            singing = false;
-        }
-        break;
+    if (trackpos > fend[findex])
+        findex++;
 }
+else
+{
+    lipsync = false;
+    singing = true;
+}
+/// END
+
+/// REPLACE
+        if (noteindex < maxnote && noteend[noteindex - 1] == notetime[noteindex] && noteanim[noteindex] == 0)
+/// CODE
+        if (noteindex < maxnote && noteend[noteindex - 1] == notetime[noteindex])
 /// END
