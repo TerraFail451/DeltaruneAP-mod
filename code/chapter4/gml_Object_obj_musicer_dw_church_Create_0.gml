@@ -3,13 +3,13 @@ if (!snd_is_playing(global.currentsong[1]))
 {
     global.currentsong[0] = snd_init("church_wip.ogg", false);
     
-    if (global.AP_ost_shuffle)
+    if (global.AP_ost_shuffle && (global.plot < 140 || global.plot >= 160))
         global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0, 1);
     else
         global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
 }
 
-if (global.AP_ost_shuffle)
+if (global.AP_ost_shuffle && (global.plot < 140 || global.plot >= 160))
 {
     if (!snd_is_playing(global.AP_music[1]))
     {
