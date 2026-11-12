@@ -1,20 +1,4 @@
 /// FUNCTIONS
-
-function AP_mus_get_orig_name(arg0 = undefined)
-{
-    if (arg0 == undefined)
-        arg0 = global.currentsong[0];
-    
-    with (obj_astream)
-    {
-        if (mystream == arg0)
-            return origsongname;
-    }
-    
-    return "";
-}
-
-
 function AP_set_looptarget(songname, instance_song_id)
 {
     switch (songname)
@@ -134,8 +118,8 @@ function AP_get_looptime(songname)
 function AP_ost_shuffle_toggle()
 {
     var song = AP_mus_get_orig_name();
-    var vol = audio_sound_get_gain(global.currentsong[1]) / global.flag[16];
-    var pit = audio_sound_get_pitch(global.currentsong[1]);
+    var vol = audio_sound_get_gain(global.currentsong[0]) / global.flag[16];
+    var pit = audio_sound_get_pitch(global.currentsong[0]);
     var stop = false;
     global.AP_ost_shuffle = !global.AP_ost_shuffle;
     
