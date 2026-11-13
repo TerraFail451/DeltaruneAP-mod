@@ -624,8 +624,21 @@ function AP_heartbeat()
     if (size_send < 0)
     {
         show_debug_message("Failed to heartbeat, connection is probably disconnected");
-        AP_disconnect();
-        global.AP_connection_state = global.AP_ENUM_CONNECTION_STATE.ERROR_TIMEOUT;
+        
+        if (global.AP_connection_state == global.AP_ENUM_CONNECTION_STATE.GOT_SCOUTING)
+        {
+            global.AP_data_package_raw = undefined;
+            global.AP_received_datapackage = 0;
+            global.AP_requested_datapackage = 0;
+            global.AP_last_datapackage_requested = "";
+            AP_disconnect();
+            global.AP_connection_state = global.AP_ENUM_CONNECTION_STATE.ERROR_GETTING_DATAPACKAGE;
+        }
+        else
+        {
+            AP_disconnect();
+            global.AP_connection_state = global.AP_ENUM_CONNECTION_STATE.ERROR_TIMEOUT;
+        }
     }
 }
 

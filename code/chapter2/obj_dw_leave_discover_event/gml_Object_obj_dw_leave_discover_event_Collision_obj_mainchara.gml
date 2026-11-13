@@ -3,7 +3,7 @@ if (global.interact == 0 && scr_havechar(2))
 {
     global.interact = 1;
     scr_speaker("susie");
-    msgsetloc(0, "\\E6* Hey^1, this looks like the beam of light in Castle Town./", "obj_readable_room1_slash_Other_10_gml_2043_0");
+    msgsetloc(0, "\\s0\\E6* Hey^1, this looks like the beam of light in Castle Town./", "obj_readable_room1_slash_Other_10_gml_2043_0");
     scr_anyface_next("ralsei", "0");
     msgnextloc("\\E0* It seems like the door to the computer lab is still cracked open./", "obj_readable_room1_slash_Other_10_gml_2045_0");
     msgnextloc("\\E9* If we must return to Castle Town^1, you two can go here to exit./", "obj_readable_room1_slash_Other_10_gml_2045_0");

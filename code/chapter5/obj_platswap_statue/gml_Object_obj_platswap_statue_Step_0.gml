@@ -274,17 +274,18 @@ if (con == 1)
     aquamarker_right.visible = 0;
     fl_left = scr_marker(-80, 3775, spr_enemy_floradin);
     fl_right = scr_marker(680, 3775, spr_enemy_floradin);
-    fl_left.image_xscale = 2;
+    fl_left.image_xscale = -2;
     fl_left.image_yscale = 2;
     fl_right.image_xscale = 2;
     fl_right.image_yscale = 2;
-    floradinnmarker_left = scr_marker(245, 3775, spr_enemy_floradin);
+    floradinnmarker_left = scr_marker(290, 3775, spr_enemy_floradin);
     floradinnmarker_right = scr_marker(345, 3775, spr_enemy_floradin);
     floradinnmarker_left.visible = 0;
     floradinnmarker_right.visible = 0;
     scr_setparty(0);
     apdata = AP_get_location_reward_data(284);
     con = 1.1;
+    scr_tempsave();
 }
 
 if (con == 1.1)
@@ -322,6 +323,8 @@ if (con == 1.1)
     with (obj_caterpillarchara)
         visible = 0;
     
+    if (global.tempflag[51] == 0)
+    {
     c_sel(kr);
     c_walkdirect(300, 3640, 16);
     c_sel(su);
@@ -556,12 +559,17 @@ if (con == 1.1)
             image_index = 0;
         }
     });
+    }
+
     c_sel(kr);
     c_walkdirect(300, 3770, 32);
     c_sel(su);
     c_walkdirect(245, 3755, 32);
     c_sel(ra);
     c_walkdirect_wait(345, 3760, 32);
+    
+    if (global.tempflag[51] == 0)
+    {
     c_sel(kr);
     c_facing("l");
     c_sel(su);
@@ -589,12 +597,17 @@ if (con == 1.1)
     c_markerwalkdirect(aqua, 300, 3640, 16, spr_aqua_walk_up, 0.25);
     c_wait(16);
     c_var_instance(id, "aqua_autodepth", 0);
+    }
+
     c_sel(kr);
     c_facing("u");
     c_sel(su);
     c_facing("u");
     c_sel(ra);
     c_facing("u");
+
+    if (global.tempflag[51] == 0)
+    {
     c_customfunc(function()
     {
         with (aqua)
@@ -750,10 +763,29 @@ if (con == 1.1)
     c_wait_if(id, "landed", "=", true);
     c_wait_if(id, "dojumping", "=", false);
     c_wait_talk();
+    }
+    else
+    {
+        c_var_instance(id, "aqua_autodepth", 1);
+        c_customfunc(function()
+        {
+            aqua.x = aquamarker_middle.x;
+            aqua.y = aquamarker_middle.y - 300;
+            var target = aquamarker_middle;
+            aquajumptoplace(target, 0, 12);
+        });
+        c_var_instance(id, "aqua_autodepth", 0);
+        c_wait_if(id, "landed", "=", true);
+        c_wait(15);
+    }
+    
     c_customfunc(function()
     {
         makeknives();
     });
+    
+    if (global.tempflag[51] == 0)
+    {
     scr_miniface_init_flowers();
     c_wait(5);
     c_sel(ra);
@@ -776,6 +808,12 @@ if (con == 1.1)
     c_facing("u");
     c_wait_talk();
     c_wait(15);
+    }
+    else
+    {
+        c_wait(30);
+    }
+
     c_customfunc(function()
     {
         floradinambush();
@@ -785,13 +823,13 @@ if (con == 1.1)
     {
         with (su_actor)
         {
-            scr_lerpvar("x", x, x - 28, 5, 1, "out");
+            scr_lerpvar("x", x, x - 68, 5, 1, "out");
             sprite_index = spr_susie_sheeh;
         }
         
         with (ra_actor)
         {
-            scr_lerpvar("x", x, x + 22, 5, 1, "out");
+            scr_lerpvar("x", x, x + 62, 5, 1, "out");
             sprite_index = spr_ralsei_shock_overworld_left;
         }
         

@@ -12,7 +12,7 @@ if (global.AP_connection_state == global.AP_ENUM_CONNECTION_STATE.TRYING_TO_CONN
         step = 0;
     }
 }
-else if (global.AP_connection_state == global.AP_ENUM_CONNECTION_STATE.READY)
+else if (global.AP_connection_state >= global.AP_ENUM_CONNECTION_STATE.CONNECTED)
 {
     step++;
 
