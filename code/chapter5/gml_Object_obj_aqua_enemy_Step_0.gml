@@ -95,5 +95,4 @@
                                 msgset_add(omega3, x - 20, y + 25, 10);
                                 break;
                         }
-                    }
 /// END
