@@ -46,4 +46,7 @@ make_petal = function(arg0, arg1, arg2)
 petalwinds = false;
 hat = scr_dark_marker(0, 0, spr_ralsei_hat);
 hat.visible = false;
+
+if (room == room_dw_garden_finalplatforming_right)
+    scr_setparty(1, 1);
 ///END

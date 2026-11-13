@@ -909,7 +909,7 @@ function scr_weaponinfo(arg0)
             break;
         
         case 52:
-            if (global.flag[852] > 0)
+            if (global.flag[852] > 0 || global.chapter > 4)
             {
                 weaponnametemp = stringsetloc("JusticeAxe", "scr_weaponinfo_slash_scr_weaponinfo_gml_675_0");
                 weapondesctemp = stringsetloc("It has no special powers. However, in order to#attain this item, you became much stronger!", "scr_weaponinfo_slash_scr_weaponinfo_gml_676_0");

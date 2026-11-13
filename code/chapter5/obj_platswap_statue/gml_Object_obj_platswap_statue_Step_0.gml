@@ -274,17 +274,18 @@ if (con == 1)
     aquamarker_right.visible = 0;
     fl_left = scr_marker(-80, 3775, spr_enemy_floradin);
     fl_right = scr_marker(680, 3775, spr_enemy_floradin);
-    fl_left.image_xscale = 2;
+    fl_left.image_xscale = -2;
     fl_left.image_yscale = 2;
     fl_right.image_xscale = 2;
     fl_right.image_yscale = 2;
-    floradinnmarker_left = scr_marker(245, 3775, spr_enemy_floradin);
+    floradinnmarker_left = scr_marker(290, 3775, spr_enemy_floradin);
     floradinnmarker_right = scr_marker(345, 3775, spr_enemy_floradin);
     floradinnmarker_left.visible = 0;
     floradinnmarker_right.visible = 0;
     scr_setparty(0);
     apdata = AP_get_location_reward_data(284);
     con = 1.1;
+    scr_tempsave();
 }
 
 if (con == 1.1)
@@ -347,13 +348,13 @@ if (con == 1.1)
         c_msgsetloc(0, "\\E0* Alright^1, now how does this statue work?/%", "obj_ch4_DCA08A_slash_Step_0_gml_70_0");
         c_talk();
         c_wait_talk();
-        c_mus("free_all");
         c_sel(su);
         c_sprite(spr_susie_walk_up_dw);
         c_emote("!", 30);
         c_sel(ra);
         c_emote("!", 30);
         c_speaker("seth");
+        c_mus("free_all");
         c_msgsetloc(0, "* There you are!/%", "obj_ch4_DCA08A_slash_Step_0_gml_70_0");
         c_talk();
         c_wait_talk();
@@ -584,7 +585,7 @@ if (con == 1.1)
         c_talk_wait();
         c_customfunc(function()
         {
-            var target = aquamarker_middle;
+            var target = kr_actor;
             aquajumptoplace(target, 8, 0);
         });
         c_waitcustom();
@@ -762,10 +763,18 @@ if (con == 1.1)
     {
         c_customfunc(function()
         {
-            var target = aquamarker_middle;
-            aquajumptoplace(target, 8, 0);
+            c_var_instance(id, "aqua_autodepth", 1);
+            c_customfunc(function()
+            {
+                aqua.x = aquamarker_middle.x;
+                aqua.y = aquamarker_middle.y - 300;
+                var target = aquamarker_middle;
+                aquajumptoplace(target, 0, 12);
+            });
+            c_var_instance(id, "aqua_autodepth", 0);
+            c_wait_if(id, "landed", "=", true);
+            c_wait(15);
         });
-        c_waitcustom();
     }
     
     c_customfunc(function()
@@ -851,13 +860,13 @@ if (con == 1.1)
     {
         with (su_actor)
         {
-            scr_lerpvar("x", x, x - 28, 5, 1, "out");
+            scr_lerpvar("x", x, x - 68, 5, 1, "out");
             sprite_index = spr_susie_sheeh;
         }
         
         with (ra_actor)
         {
-            scr_lerpvar("x", x, x + 22, 5, 1, "out");
+            scr_lerpvar("x", x, x + 62, 5, 1, "out");
             sprite_index = spr_ralsei_shock_overworld_left;
         }
         

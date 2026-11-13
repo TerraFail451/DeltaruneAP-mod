@@ -184,6 +184,7 @@ function AP_game_start_post_connexion()
         global.charweapon[2] = 2;
         global.charweapon[3] = 3;
         global.charweapon[4] = 12;
+        global.lweapon = 2;
     }
     else
     {
@@ -192,6 +193,7 @@ function AP_game_start_post_connexion()
                 global.charweapon[1] = 1;
                 global.charweapon[2] = 2;
                 global.charweapon[3] = 3;
+                global.lweapon = 2;
                 break;
             case 2:
                 global.charweapon[1] = 1;
@@ -209,6 +211,7 @@ function AP_game_start_post_connexion()
                 global.charweapon[4] = 12;
                 global.chararmor1[4] = 14;
                 global.chararmor2[4] = 22;
+                global.lweapon = 2;
                 break;
             case 3:
                 global.charweapon[1] = 16;
@@ -226,6 +229,7 @@ function AP_game_start_post_connexion()
                 global.charweapon[4] = 12;
                 global.chararmor1[4] = 14;
                 global.chararmor2[4] = 22;
+                global.lweapon = 13;
                 break;
             case 4:
                 global.charweapon[1] = 23;
@@ -243,6 +247,7 @@ function AP_game_start_post_connexion()
                 global.charweapon[4] = 12;
                 global.chararmor1[4] = 14;
                 global.chararmor2[4] = 22;
+                global.lweapon = 16;
                 break;
             case 5:
                 global.charweapon[1] = 53;
@@ -260,6 +265,7 @@ function AP_game_start_post_connexion()
                 global.charweapon[4] = 12;
                 global.chararmor1[4] = 14;
                 global.chararmor2[4] = 22;
+                global.lweapon = 18;
                 break;
         }
     }

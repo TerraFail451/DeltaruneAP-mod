@@ -11,6 +11,7 @@ function scr_should_entering_battle_gameover()
     case 84: // Giga Queen
     case 102: // Pipis
     case 160: // Hammer of Justice
+    case 220: // Aqua
       return false;
   }
 

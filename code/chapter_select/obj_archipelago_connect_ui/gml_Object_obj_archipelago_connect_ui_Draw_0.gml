@@ -202,6 +202,11 @@ if (connect && page == 0)
             connected = string(global.AP_connection_state);
             break;
         
+        case global.AP_ENUM_CONNECTION_STATE.ERROR_GETTING_DATAPACKAGE:
+            draw_set_color(c_red);
+            connected = "> Timeout retrieving\ndatapackage.\nPlease try again.";
+            break;
+        
         case global.AP_ENUM_CONNECTION_STATE.ERROR_TIMEOUT:
             draw_set_color(c_red);
             connected = "> Connection timed out.\nCheck host and port";

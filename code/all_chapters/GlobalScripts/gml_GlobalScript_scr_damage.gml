@@ -1,5 +1,29 @@
 /// PATCH
 
+#if CHAPTER_5
+/// AFTER
+function scr_damage(arg0 = true)
+{
+/// CODE
+    gameover = 1;
+
+    if (global.char[0] != 0 && global.hp[global.char[0]] > 0)
+        gameover = 0;
+    
+    if (global.char[1] != 0 && global.hp[global.char[1]] > 0)
+        gameover = 0;
+    
+    if (global.char[2] != 0 && global.hp[global.char[2]] > 0)
+        gameover = 0;
+    
+    if (gameover == 1)
+    {
+        scr_gameover();
+        exit;
+    }
+/// END
+#endif
+
 /// REPLACE
 #if CHAPTER_4
                     with (global.charinstance[target])

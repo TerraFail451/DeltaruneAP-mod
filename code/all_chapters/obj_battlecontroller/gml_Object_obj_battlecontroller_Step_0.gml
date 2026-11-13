@@ -52,6 +52,14 @@ if (global.myfight == 0)
         scr_nexthero();
 /// END
 
+#if CHAPTER_5
+/// REPLACE
+        if (!i_ex(battlewriter) || (global.chapter == 2 && !i_ex(battlewriter)))
+/// CODE
+        if ((!i_ex(battlewriter) || (global.chapter == 2 && !i_ex(battlewriter))) && !(global.maxhp[global.char[0]] <= 0 && global.maxhp[global.char[1]] <= 0 && global.maxhp[global.char[2]] <= 0))
+/// END
+#endif
+
 #if CHAPTER_1
 /// REPLACE
         global.battlemsg[0] = scr_84_get_subst_string(scr_84_get_lang_string("obj_battlecontroller_slash_Step_0_gml_40_0"), string(global.monsterexp[3]), string(global.monstergold[3]));
