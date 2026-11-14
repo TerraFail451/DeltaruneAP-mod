@@ -326,10 +326,13 @@ if (con == 1.1)
     c_pannable(1);
     c_panobj_fancy(aquamarker_middle, 20);
     c_sel(kr);
+    c_autodepth(1);
     c_walkdirect(300, 3640, 16);
     c_sel(su);
+    c_autodepth(1);
     c_walkdirect(245, 3635, 16);
     c_sel(ra);
+    c_autodepth(1);
     c_walkdirect_wait(345, 3640, 16);
     c_sel(kr);
     c_facing("u");
@@ -349,22 +352,22 @@ if (con == 1.1)
         c_talk();
         c_wait_talk();
         c_sel(su);
-        c_sprite(spr_susie_walk_up_dw);
-        c_emote("!", 30);
-        c_sel(ra);
-        c_emote("!", 30);
+        c_facing("u");
         c_speaker("seth");
         c_mus("free_all");
         c_msgsetloc(0, "* There you are!/%", "obj_ch4_DCA08A_slash_Step_0_gml_70_0");
         c_talk();
         c_wait_talk();
+        c_sel(su);
+        c_emote("!", 30);
+        c_sel(ra);
+        c_emote("!", 30);
         c_sel(kr);
         c_facing("d");
         c_sel(su);
         c_facing("d");
         c_sel(ra);
         c_facing("d");
-        c_pan(aquamarker_middle.x, aquamarker_middle.y + 40, 20);
         c_markerwalkdirect(seth, 285, 3770, 48, spr_seth_walk_right, 0.25);
         c_wait(49);
         c_customfunc(function()
@@ -401,6 +404,7 @@ if (con == 1.1)
             }
         });
         c_wait_box(5);
+        c_flipinstance(seth, "x");
         c_customfunc(function()
         {
             with (seth)
@@ -452,6 +456,7 @@ if (con == 1.1)
                 image_index = 1;
             }
         });
+        c_flipinstance(seth, "x");
         c_customfunc(function()
         {
             with (seth)
@@ -559,6 +564,7 @@ if (con == 1.1)
                 image_index = 0;
             }
         });
+        c_pan(0, cameray() + 35, 32);
         c_sel(kr);
         c_walkdirect(300, 3770, 32);
         c_sel(su);
@@ -588,16 +594,25 @@ if (con == 1.1)
             var target = kr_actor;
             aquajumptoplace(target, 8, 0);
         });
+        c_delaycmd(10, "var", id, "aqua_autodepth", 0);
         c_waitcustom();
-        c_markerwalkdirect(aqua, 300, 3640, 16, spr_aqua_walk_up, 0.25);
-        c_wait(16);
-        c_var_instance(id, "aqua_autodepth", 0);
         c_sel(kr);
         c_facing("u");
         c_sel(su);
         c_facing("u");
         c_sel(ra);
         c_facing("u");
+        c_customfunc(function()
+        {
+            with (aqua)
+            {
+                sprite_index = spr_aqua_walk_up;
+                image_index = 0;
+                image_speed = 0;
+            }
+        });
+        c_markerwalkdirect(aqua, 300, 3640, 16, spr_aqua_walk_up, 0.25);
+        c_wait(17);
         c_customfunc(function()
         {
             with (aqua)
@@ -761,20 +776,21 @@ if (con == 1.1)
     }
     else
     {
+        c_var_instance(id, "aqua_autodepth", 1);
         c_customfunc(function()
         {
-            c_var_instance(id, "aqua_autodepth", 1);
-            c_customfunc(function()
-            {
-                aqua.x = aquamarker_middle.x;
-                aqua.y = aquamarker_middle.y - 300;
-                var target = aquamarker_middle;
-                aquajumptoplace(target, 0, 12);
-            });
-            c_var_instance(id, "aqua_autodepth", 0);
-            c_wait_if(id, "landed", "=", true);
-            c_wait(15);
+            aqua.x = aquamarker_middle.x;
+            aqua.y = aquamarker_middle.y - 300;
+            var target = aquamarker_middle;
+            aquajumptoplace(target, 0, 12);
         });
+        c_var_instance(id, "aqua_autodepth", 0);
+        c_customfunc(function()
+        {
+            aqua.depth = obj_platswap_statue.depth - 2;
+        });
+        c_wait_if(id, "landed", "=", true);
+        c_wait(15);
     }
     
     c_customfunc(function()
@@ -809,37 +825,37 @@ if (con == 1.1)
     }
     else
     {
+        c_pan(0, cameray() + 35, 20);
+        c_sel(kr);
+        c_sprite(spr_krisu_kneel_b);
+        c_sel(su);
+        c_sprite(spr_susie_shocked_behind);
+        c_sel(ra);
+        c_sprite(spr_ralsei_shocked_behind_hat);
+        c_flip("x");
         c_customfunc(function()
         {
             with (kr_actor)
             {
-                scr_lerpvar("x", x, 300, 8, 1, "out");
-                scr_lerpvar("y", y, 3770, 8, 1, "out");
-                sprite_index = spr_krisu_kneel_b;
+                scr_lerpvar("x", x, 300, 12, 1, "out");
+                scr_lerpvar("y", y, 3770, 12, 1, "out");
             }
 
             with (su_actor)
             {
-                scr_lerpvar("x", x, 245, 8, 1, "out");
-                scr_lerpvar("y", y, 3755, 8, 1, "out");
-                sprite_index = spr_susie_shocked_behind;
+                scr_lerpvar("x", x, 245, 12, 1, "out");
+                scr_lerpvar("y", y, 3755, 12, 1, "out");
             }
 
             with (ra_actor)
             {
-                scr_lerpvar("x", x, 345, 8, 1, "out");
-                scr_lerpvar("y", y, 3760, 8, 1, "out");
-                sprite_index = spr_ralsei_shocked_behind_hat;
+                scr_lerpvar("x", x, 390, 12, 1, "out");
+                scr_lerpvar("y", y, 3760, 12, 1, "out");
             }
         });
-        c_sel(kr);
-        c_shakeobj();
-        c_sel(su);
-        c_shakeobj();
-        c_sel(ra);
-        c_shakeobj();
         c_wait(30);
         c_sel(kr);
+        c_delayfacing(25, "u");
         c_customfunc(function()
         {
             with (kr_actor)
@@ -848,7 +864,6 @@ if (con == 1.1)
                 scr_lerpvar("image_index", 0, 4, 25);
             }
         });
-        c_delayfacing("u", 25);
     }
     
     c_customfunc(function()
@@ -856,6 +871,14 @@ if (con == 1.1)
         floradinambush();
     });
     c_wait(12);
+
+    if (global.tempflag[51] > 0)
+    {
+        c_sel(ra);
+        c_flip("x");
+        c_setxy(345, 3760);
+    }
+    
     c_customfunc(function()
     {
         with (su_actor)
@@ -1165,19 +1188,15 @@ if (con == 9 && !instance_exists(obj_battleback))
     c_sel(ra);
     c_delayfacing(delaytime, "l");
     c_sel(kr);
-    c_delayfacing(delaytime, "r");
+    c_delayfacing(delaytime, "l");
     c_customfunc(function()
     {
         var target = aqpos[2];
         aquajumptoplace(target, 0, 4, 1.6, -12);
     });
     delaytime = 30;
-    c_sel(ra);
-    c_delayfacing(delaytime, "d");
-    c_sel(kr);
-    c_delayfacing(delaytime, "d");
     c_sel(su);
-    c_delayfacing(delaytime, "d");
+    c_delayfacing(delaytime, "l");
     c_waitcustom();
     c_customfunc(function()
     {
@@ -1189,7 +1208,7 @@ if (con == 9 && !instance_exists(obj_battleback))
     c_wait(15);
     c_customfunc(function()
     {
-        aqua.sprite_index = spr_aqua_walk_up;
+        aqua.sprite_index = spr_aqua_walk_right;
     });
     c_msgside("top");
     c_speaker("aqua");
@@ -1200,6 +1219,7 @@ if (con == 9 && !instance_exists(obj_battleback))
     c_sprite(spr_susie_pose);
     c_sel(ra);
     c_sprite(spr_ralsei_dark_pose);
+    c_addxy(16, 0);
     c_sound_play_x(snd_shineselect, 0.7, 1.4);
     c_wait(15);
     c_speaker("susie");
@@ -1219,10 +1239,10 @@ if (con == 9 && !instance_exists(obj_battleback))
     });
     c_wait_talk();
     c_sel(su);
-    c_facing("d");
+    c_facing("l");
     c_sel(ra);
-    c_facing("d");
-    c_addxy(16, 0);
+    c_facing("l");
+    c_addxy(-16, 0);
     c_customfunc(function()
     {
         var target = aqpos[4];
