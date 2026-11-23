@@ -124,7 +124,7 @@ function AP_ost_shuffle_toggle()
     global.AP_ost_shuffle = !global.AP_ost_shuffle;
     
 #if CHAPTER_4
-    if (song == "" && !i_ex(obj_dw_church_worshiproom) && !i_ex(obj_music_worship))
+    if (song == "" && !i_ex(obj_dw_church_worshiproom))
         exit;
     
 #else
@@ -137,9 +137,15 @@ function AP_ost_shuffle_toggle()
         exit;
     
 #endif
+#if CHAPTER_4
+    if (!variable_struct_exists(global.AP_ost_mapping, song) && !i_ex(obj_dw_church_worshiproom))
+        exit;
+    
+#else
     if (!variable_struct_exists(global.AP_ost_mapping, song))
         exit;
     
+#endif
     snd_free_all();
     
 #if CHAPTER_2
