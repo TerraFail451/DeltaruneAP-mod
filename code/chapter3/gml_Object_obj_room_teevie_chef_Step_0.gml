@@ -1,15 +1,26 @@
 /// PATCH
 
-/// AFTER
+/// REPLACE
+        c_wait(60);
+    }
+    
+    c_waitcustom();
+}
+
 if (con == 73 && customcon == 1)
 {
 /// CODE
-      AP_sendLocation(161);
-/// END
+        c_wait(60);
+        c_customfunc(function()
+        {
+            AP_sendLocation([161, 162]);
+        });
+    }
+    
+    c_waitcustom();
+}
 
-/// AFTER
-if (con == 75 && customcon == 1)
+if (con == 73 && customcon == 1)
 {
-/// CODE
-      AP_sendLocation([161, 162]);
+    AP_sendLocation([161, 162]);
 /// END
