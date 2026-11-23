@@ -24,7 +24,16 @@ if (global.plot >= 243)
         con = 0;
 /// CODE
 if (global.plot >= 160)
+{
+    with (obj_border_controller)
+    {
+        set_border(border_dw_castletown, 1);
+        show_border(0.04);
+    }
+    
+    con = 5;
     border_change = true;
+}
 
 if (global.plot >= 243)
 {
