@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CHAPTER_5
 function scr_msgno_func(arg0, arg1, arg2 = 0, arg3 = 0, arg4 = 30, arg5 = -4)
 {
     var __watcher = instance_create_depth(0, 0, 0, obj_msgno_func);

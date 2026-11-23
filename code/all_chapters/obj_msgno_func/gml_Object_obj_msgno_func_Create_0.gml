@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CHAPTER_5
 msgno = 0;
 when = 0;
 

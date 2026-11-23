@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CHAPTER_5
 var trig = false;
 
 if (instance_exists(obj_writer))
