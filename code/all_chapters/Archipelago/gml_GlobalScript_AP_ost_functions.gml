@@ -1,6 +1,9 @@
 /// FUNCTIONS
 function AP_set_looptarget(songname, instance_song_id)
 {
+    if (!global.AP_ost_shuffle)
+        return -1;
+    
     switch (songname)
     {
         case "rhythm_3rd_sanctuary_guit.ogg":
@@ -66,6 +69,9 @@ function AP_set_looptarget(songname, instance_song_id)
 
 function AP_get_looptime(songname)
 {
+    if (!global.AP_ost_shuffle)
+        return -1;
+    
     switch (songname)
     {
         case "rhythm_3rd_sanctuary_guit.ogg":
