@@ -67,7 +67,7 @@ if (con == 150 && !d_ex())
     c_msgnextloc("\\EA* Suppose you wanna go send these off^1, Kris./", "obj_dw_church_arena_slash_Step_0_gml_1701_0");
     c_msgnextloc("\\ER* The axe is cool^1, sure^1, but I don't need it./", "obj_dw_church_arena_slash_Step_0_gml_1701_0");
     c_msgnextloc("\\ES* I've shown how cool I am by beating that guy^1, y'know?/", "obj_dw_church_arena_slash_Step_0_gml_1701_0");
-    c_msgnextloc("\\E2* Here you go./%", "obj_dw_church_arena_slash_Step_0_gml_1701_0");
+    c_msgnextloc("\\E2* Here you go./", "obj_dw_church_arena_slash_Step_0_gml_1701_0");
     c_customfunc(function()
     {
         AP_sendLocation([206, 207]);
