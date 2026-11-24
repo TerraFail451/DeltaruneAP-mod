@@ -18,7 +18,7 @@ if (ds_map_exists(async_load, "buffer"))
                 show_debug_message(data[i])
             }
             // get archipelago multiworld
-            if(global.AP_multiworld == 0)
+            if(global.AP_multiworld == "")
 			    global.AP_multiworld = data[0].seed_name;
 
             switch (data[i].cmd)
