@@ -81,5 +81,8 @@ function scr_litemname()
             
         if (itemid == 1000)
             global.litemname[i] = stringsetloc("Multitool", "scr_litemname_slash_scr_litemname_gml_24_0");
+
+        if (itemid == 1001)
+            global.litemname[i] = stringsetloc("Thorn", "scr_litemname_slash_scr_litemname_gml_24_0");
     }
 }
