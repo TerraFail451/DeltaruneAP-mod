@@ -376,5 +376,12 @@ function scr_litemuseb(arg0, arg1)
             snd_play(snd_item);
             scr_writetext(0, "x", 0, 0);
             break;
+        
+        case 1001:
+            global.msg[0] = stringsetloc("* You equipped the Thorn./%", "scr_litemuseb_slash_scr_litemuseb_gml_256_0");
+            scr_lweaponeq(arg0, arg1);
+            snd_play(snd_item);
+            scr_writetext(0, "x", 0, 0);
+            break;
     }
 }

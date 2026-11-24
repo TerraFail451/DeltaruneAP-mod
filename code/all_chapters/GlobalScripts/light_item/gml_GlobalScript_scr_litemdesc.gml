@@ -120,5 +120,9 @@ function scr_litemdesc(arg0)
         case 1000:
             global.msg[0] = stringsetloc("* \"Multitool\" - 5 AT&* Useful in any situation.&* Watch out for sharp ends!/%", "scr_litemdesc_slash_scr_litemdesc_gml_68_0");
             break;
+        
+        case 1001:
+            global.msg[0] = stringsetloc("* \"Thorn\" - 1 AT&* Toby please add details/%", "scr_litemdesc_slash_scr_litemdesc_gml_68_0");
+            break;
     }
 }

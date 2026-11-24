@@ -108,7 +108,21 @@ function get_lw_weapon_strength(arg0)
 
 function get_lw_dw_weapon_list()
 {
-    var weapon_list = [new lw_dw_weapon(2, 1), new lw_dw_weapon(6, 5), new lw_dw_weapon(7, 8), new lw_dw_weapon(12, 14), new lw_dw_weapon(13, 16), new lw_dw_weapon(16, 23, 2), new lw_dw_weapon(17, 26, 16), new lw_dw_weapon(15, 50), new lw_dw_weapon(18, 53), new lw_dw_weapon(22, 30, 2), new lw_dw_weapon(23, 33, 0), new lw_dw_weapon(1000, 4, 5)];
+    var weapon_list = [
+        new lw_dw_weapon(2, 1), 
+        new lw_dw_weapon(6, 5), 
+        new lw_dw_weapon(7, 8), 
+        new lw_dw_weapon(12, 14), 
+        new lw_dw_weapon(13, 16), 
+        new lw_dw_weapon(16, 23, 2), 
+        new lw_dw_weapon(17, 26, 16), 
+        new lw_dw_weapon(15, 50), 
+        new lw_dw_weapon(18, 53), 
+        new lw_dw_weapon(22, 30, 2), 
+        new lw_dw_weapon(23, 33, 0), 
+        new lw_dw_weapon(1000, 4, 5), // Multitool/EverybodyWeapon
+        new lw_dw_weapon(1001, 11) // Thorn/TwistedSwd
+    ];
     return weapon_list; // for future chapters add data for multitool from the above line ^^^
 }
 

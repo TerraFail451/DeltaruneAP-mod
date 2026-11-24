@@ -126,6 +126,9 @@ if (global.interact == 5)
         
         if (global.lweapon == 1000)
             weaponname = stringsetloc("Multitool", "scr_litemname_slash_scr_litemname_gml_24_0");
+
+        if (global.lweapon == 1001)
+            weaponname = stringsetloc("Thorn", "scr_litemname_slash_scr_litemname_gml_24_0");
         
         if (global.larmor == 3)
             armorname = stringsetloc("Bandage", "obj_overworldc_slash_Draw_0_gml_78_0");
