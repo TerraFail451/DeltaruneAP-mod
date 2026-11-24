@@ -44,22 +44,28 @@
         c_talk_wait();
     }
 /// CODE
-    c_soundplay(snd_item);
     c_speaker("no_name");
+    c_msgset(0, string("* (You got {0}.)/", AP_get_location_reward_text(97)));
+    c_msgnext(string("* (You got {0}.)/", AP_get_location_reward_text(98)));
+    c_msgnext(string("* (You got {0}.)/%", AP_get_location_reward_text(99)));
+    c_talk();
+    c_wait_box(0);
+    c_sound_play(snd_item);
     c_customfunc(function()
     {
         AP_sendLocation(97);
     });
-    c_msgset(0, string("* (You got {0}.)/", AP_get_location_reward_text(97)));
+    c_wait_box(1);
+    c_sound_play(snd_item);
     c_customfunc(function()
     {
         AP_sendLocation(98);
     });
-    c_msgnext(string("* (You got {0}.)/", AP_get_location_reward_text(98)));
+    c_wait_box(2);
+    c_sound_play(snd_item);
     c_customfunc(function()
     {
         AP_sendLocation(99);
     });
-    c_msgnext(string("* (You got {0}.)/", AP_get_location_reward_text(99)));
-    c_talk_wait();
+    c_wait_talk();
 /// END

@@ -66,10 +66,19 @@ if (myinteract == 6 && !d_ex())
     if (global.flag[1404] == 1)
     {
         msgnext("* (Susie's ability to equip RIBBONS is going even further beyond.)/");
+        scr_msgfunc(function()
+        {
+            snd_play(snd_boost);
+        });
         msgnext("* (Somehow^1, something begins to take shape.)\\f1/");
+        scr_msgfunc(function()
+        {
+            snd_play(snd_sparkle_glock);
+        });
         msgnext(string("* (You got {0}.^1)\\f2/%", AP_get_location_reward_text(349)));
         scr_msgfunc(function()
         {
+            snd_play(snd_item);
             AP_sendLocation(349);
         });
     }
@@ -78,9 +87,14 @@ if (myinteract == 6 && !d_ex())
         msgnext(string("* (Susie's ability to equip RIBBONS turned into {0}!^1)\\f1/", AP_get_location_reward_text(349)));
         scr_msgfunc(function()
         {
+            snd_play(snd_hypnosis);
             AP_sendLocation(349);
         });
         msgnext("* (As a result^1, Susie can no longer equip RIBBONS.)\\f2/%");
+        scr_msgfunc(function()
+        {
+            snd_play(snd_awkward);
+        });
     }
 /// END
 

@@ -468,10 +468,6 @@ if (con == 1.1)
         c_facenext("seth", "0");
         c_msgnextloc("* What are you doing here?!/", "obj_ch4_DCA08A_slash_Step_0_gml_70_0");
         c_msgnextloc(string("* I told you to protect the {0}!/", string(apdata.itemName)));
-        c_customfunc(function()
-        {
-            AP_sendHint(284);
-        });
         c_facenext("no_name", "0");
         c_msgnextloc("* Yeah^1, I got bored./", "obj_ch4_DCA08A_slash_Step_0_gml_70_0");
         c_facenext("seth", "0");
@@ -519,6 +515,11 @@ if (con == 1.1)
         {
             with (seth)
                 sprite_index = spr_seth_upset;
+        });
+        c_wait_box(3);
+        c_customfunc(function()
+        {
+            AP_sendHint(284);
         });
         c_wait_box(5);
         c_customfunc(function()
@@ -1320,13 +1321,15 @@ if (con == 9 && !instance_exists(obj_battleback))
     c_msgsetloc(0, "\\E8* She seemed like a nice girl after all./", "obj_dw_garden_aqua_slash_Step_0_gml_907_0");
     c_facenext("susie", "0");
     c_msgnextloc("\\E0* ..^1. wonder what the deal with that weird thing is?/", "obj_dw_garden_aqua_slash_Step_0_gml_915_0");
+    c_facenext("no_name", "0");
+    c_msgnextloc(string("* (You got {0}.)/%", AP_get_location_reward_text(284)));
+    c_talk();
+    c_wait_box(4);
+    c_snd_play(snd_item);
     c_customfunc(function()
     {
         AP_sendLocation(284);
     });
-    c_facenext("no_name", "0");
-    c_msgnextloc(string("* (You got {0}.)/%", AP_get_location_reward_text(284)));
-    c_talk();
     c_wait_talk();
     c_pannable(1);
     c_customfunc(function()
