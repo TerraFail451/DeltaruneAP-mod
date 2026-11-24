@@ -13,8 +13,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 337;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgnextloc(string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE
@@ -24,8 +27,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 340;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgnextloc(string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE
@@ -35,8 +41,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 339;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgnextloc(string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE
@@ -46,8 +55,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 342;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgnextloc(string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE
@@ -57,8 +69,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 338;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgnextloc(string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE
@@ -68,8 +83,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 341;
             apdata = AP_get_location_reward_data(t_itemid);
-            AP_sendHint(t_itemid);
             msgsetloc(0, string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+            scr_msgfunc(function()
+            {
+                AP_sendHint(t_itemid);
+            });
 /// END
 
 /// REPLACE
@@ -79,8 +97,11 @@ var buythisstring = stringsetsubloc("* Buy this for ~1 Flowery Dollars and ~2 Pi
                 with (obj_dw_fcastle_pinkshop)
                     t_itemid = 343;
                 apdata = AP_get_location_reward_data(t_itemid);
-                AP_sendHint(t_itemid);
                 msgsetloc(0, string("* \"{0}\" - Item for {1}./", apdata.itemName, apdata.playerName), "obj_dw_fcastle_pinkshop_slash_Step_0_gml_78_0");
+                scr_msgfunc(function()
+                {
+                    AP_sendHint(t_itemid);
+                });
 /// END
 
 /// REPLACE

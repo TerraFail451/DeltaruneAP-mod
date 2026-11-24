@@ -2014,7 +2014,10 @@ function scr_text(arg0)
                 global.msg[1] = scr_84_get_lang_string("scr_text_slash_scr_text_gml_1858_0");
                 global.msg[2] = scr_84_get_lang_string("scr_text_slash_scr_text_gml_1859_0");
                 global.msg[3] = " ";
-                AP_sendHint(7);
+                scr_msgno_func(0, function()
+                {
+                    AP_sendHint(7);
+                });
             }
             
             break;
@@ -2064,7 +2067,10 @@ function scr_text(arg0)
                 global.msg[0] = string("* (Hathy offers \\s0{0}.^1)/", AP_get_location_reward_text(8));
                 global.msg[1] = "* (Proceeds go to Hathy's Health. It costs $40.)/"
                 global.msg[2] = scr_84_get_lang_string("scr_text_slash_scr_text_gml_1905_0");
-                AP_sendHint(8);
+                scr_msgno_func(0, function()
+                {
+                    AP_sendHint(8);
+                });
                 break;
             }
         
@@ -2114,7 +2120,10 @@ function scr_text(arg0)
             global.msg[5] = stringsetloc("* It's a mere $40./", "scr_text_slash_scr_text_gml_1953_0");
             global.msg[6] = stringsetloc("\\C2 ", "scr_text_slash_scr_text_gml_1952_0");
             global.msg[7] = stringsetloc(" ", "scr_text_slash_scr_text_gml_1955_0");
-            AP_sendHint(9);
+            scr_msgno_func(1, function()
+            {
+                AP_sendHint(9);
+            });
             break;
         
         case 331:
