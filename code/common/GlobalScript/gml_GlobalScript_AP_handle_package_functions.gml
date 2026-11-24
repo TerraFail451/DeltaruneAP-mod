@@ -105,6 +105,8 @@ function AP_async_read_options(data)
   {
       if (variable_struct_exists(data.slot_data.randomized, "ost"))
           global.AP_ost_mapping = data.slot_data.randomized.ost
+      if (variable_struct_exists(data.slot_data.randomized, "nongerson_ost"))
+          global.AP_ost_mapping_nongerson = data.slot_data.randomized.nongerson_ost
   }
 
   if (variable_struct_exists(data.slot_data.options, "shuffle_ost"))

@@ -45,8 +45,21 @@ function snd_init(arg0, arg1 = true)
     {
         global.AP_debug_last_shuffled_ost = _old_song;
         
+#if CHAPTER_4
+        if (i_ex(obj_dw_churchb_nongerson))
+        {
+            if (variable_struct_exists(global.AP_ost_mapping_nongerson, arg0))
+                _new_song = variable_struct_get(global.AP_ost_mapping_nongerson, arg0);
+        }
+        else
+        {
+            if (variable_struct_exists(global.AP_ost_mapping, arg0))
+                _new_song = variable_struct_get(global.AP_ost_mapping, arg0);
+        }
+#else
         if (variable_struct_exists(global.AP_ost_mapping, arg0))
             _new_song = variable_struct_get(global.AP_ost_mapping, arg0);
+#endif
         
         global.AP_debug_last_shuffled_ost_result = _new_song;
     }

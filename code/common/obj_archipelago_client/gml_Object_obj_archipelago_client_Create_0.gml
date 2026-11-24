@@ -77,6 +77,7 @@ global.AP_damagelink_infos = {source: undefined, uuid: undefined, damage_points:
 global.AP_damagelink_group = ""
 global.AP_ost_shuffle = false;
 global.AP_ost_mapping = {}
+global.AP_ost_mapping_nongerson = {}
 global.AP_secret_bosses_mandatory = false;
 global.AP_unlock_fun_gang_actions = true;
 global.AP_remove_starting_equipment = true;
