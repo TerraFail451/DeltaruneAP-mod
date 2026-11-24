@@ -9,7 +9,7 @@
         global.currentsong[0] = snd_init("second_church.ogg", false);
         global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
 
-        if (global.AP_ost_shuffle)
+        if (global.AP_ost_shuffle && variable_struct_get(global.AP_ost_mapping, "second_church.ogg") != "second_church.ogg")
         {
             with (obj_doorAny)
                 doorFadeMusic = 1;
