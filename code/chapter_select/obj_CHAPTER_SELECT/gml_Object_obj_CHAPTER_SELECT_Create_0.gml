@@ -142,9 +142,7 @@ detect_no_chapters = function()
 /// AFTER
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 /// CODE
-global.init_vol_and_border = 0;
-
-if (!global.init_vol_and_border)
+if (!variable_global_exists("init_vol_and_border"))
 {
     global.init_vol_and_border = 1;
     global.tru_vol = 0.6;
