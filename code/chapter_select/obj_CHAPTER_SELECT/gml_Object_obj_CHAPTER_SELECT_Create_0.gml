@@ -142,24 +142,40 @@ detect_no_chapters = function()
 /// AFTER
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 /// CODE
-global.tru_vol = 0.6;
-global.mus_vol = 0.85;
-global.sfx_vol = 1;
+global.init_vol_and_border = 0;
 
-if (ossafe_file_exists("true_config.ini"))
+if (!global.init_vol_and_border)
 {
-    ossafe_ini_open("true_config.ini");
-    global.tru_vol = ini_read_real("AUDIO", "MASTER_VOLUME", 0.6);
-    global.mus_vol = ini_read_real("AUDIO", "MUSIC_VOLUME", 0.85);
-    global.sfx_vol = ini_read_real("AUDIO", "SOUND_VOLUME", 1);
-    ossafe_ini_close();
-}
+    global.init_vol_and_border = 1;
+    global.tru_vol = 0.6;
+    global.mus_vol = 0.85;
+    global.sfx_vol = 1;
+    global.screen_border_id = "Dynamic";
+    global.screen_border_active = true;
+    global.screen_border_alpha = 1;
+    global.screen_border_state = 0;
+    global.screen_border_dynamic_fade_id = 0;
+    global.screen_border_dynamic_fade_level = 0;
 
-global.tru_vol *= (1 / 0.6);
-global.mus_vol *= (1 / 0.85);
-audio_sound_gain(snd_menumove, global.sfx_vol, 0);
-audio_sound_gain(snd_swing, global.sfx_vol, 0);
-audio_set_master_gain(0, global.tru_vol);
+    if (ossafe_file_exists("true_config.ini"))
+    {
+        ossafe_ini_open("true_config.ini");
+        global.tru_vol = ini_read_real("AUDIO", "MASTER_VOLUME", 0.6);
+        global.mus_vol = ini_read_real("AUDIO", "MUSIC_VOLUME", 0.85);
+        global.sfx_vol = ini_read_real("AUDIO", "SOUND_VOLUME", 1);
+        global.screen_border_id = ini_read_string("BORDER", "TYPE", "Dynamic");
+        var _disable_border = global.screen_border_id == "None" || global.screen_border_id == "なし";
+        scr_enable_screen_border(!_disable_border);
+        ossafe_ini_close();
+    }
+
+    global.tru_vol *= (1 / 0.6);
+    global.mus_vol *= (1 / 0.85);
+    audio_sound_gain(snd_menumove, global.sfx_vol, 0);
+    audio_sound_gain(snd_select, global.sfx_vol, 0);
+    audio_sound_gain(snd_swing, global.sfx_vol, 0);
+    audio_set_master_gain(0, global.tru_vol);
+}
 /// END
 
 /// REPLACE
