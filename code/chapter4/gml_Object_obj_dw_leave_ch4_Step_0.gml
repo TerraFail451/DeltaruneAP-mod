@@ -6,6 +6,17 @@
     mus_volume(global.AP_music[1], 0, 30);
 /// END
 
+/// REPLACE
+        with (kr_actor)
+        {
+            scr_set_facing_sprites("kris");
+            fun = 1;
+            image_speed = 0.25;
+            scr_move_to_point_over_time(__x, __y, walktime);
+        }
+/// CODE
+/// END
+
 /// BEFORE
     contimer = 0;
     con = 11;
@@ -18,7 +29,6 @@
         su_actor.__y = sus_y + 8;
         su_walktime = scr_calculate_move_distance(su_actor.x, su_actor.y, su_actor.__x, su_actor.__y, 4) / 2;
         var walktime = su_walktime;
-        kr_walktime = walktime;
         
         with (su_actor)
         {
@@ -29,6 +39,23 @@
         
         with (global.cinstance[0])
             visible = 0;
+    }
+
+    if (instance_exists(obj_mainchara))
+    {
+        kr_walktime = walktime;
+        obj_mainchara.x = (x - 34) + 12;
+        obj_mainchara.y = y - 22;
+        obj_mainchara.cutscene = 1;
+        scr_pan_to_obj(obj_mainchara, walktime);
+        
+        with (kr_actor)
+        {
+            scr_set_facing_sprites("kris");
+            fun = 1;
+            image_speed = 0.25;
+            scr_move_to_point_over_time(__x, __y, walktime);
+        }
     }
     
     with (obj_caterpillarchara)

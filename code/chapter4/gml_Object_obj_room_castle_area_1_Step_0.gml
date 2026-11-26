@@ -1,21 +1,12 @@
-/// PATCH
-
-/// REPLACE
-    if (global.is_console)
-        c_var_instance(id, "border_change", true);
-/// CODE
-    c_var_instance(id, "border_change", true);
-/// END
-
-/// REPLACE
+/// IMPORT
+if (border_change)
+{
+    border_val = clamp(border_val + 0.04, 0, 1);
+    var _val = border_val;
+    
+    with (obj_border_controller)
+        overlay_color = merge_color(c_white, c_black, _val);
+    
     if (border_val >= 1)
         border_change = false;
-/// CODE
-    if (border_val >= 1)
-    {
-        border_change = false;
-
-        if (con == 5)
-            con = -1;
-    }
-/// END
+}

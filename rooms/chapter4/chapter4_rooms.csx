@@ -6,7 +6,6 @@
 #load "room_dw_church_gersonstudy.csx"
 #load "room_dw_church_knightclimb_post.csx"
 #load "room_dw_church_holywatercooler.csx"
-#load "room_dw_castle_town.csx"
 #load "room_dw_castle_tv_zone_minigame.csx"
 #load "room_dw_church_intro_gerson.csx"
 
@@ -20,12 +19,11 @@ void Load_chapter4_rooms()
   Load_room_dw_church_gersonstudy();
   Load_room_dw_church_knightclimb_post();
   Load_room_dw_church_holywatercooler();
-  Load_room_dw_castle_town();
   Load_room_dw_castle_tv_zone_minigame();
   Load_room_dw_church_intro_gerson();
 }
 
 void Load_Early_Chapter4_Rooms()
 {
-  
+
 }
