@@ -1,3 +1,5 @@
+#load "../room_helper.csx"
+
 void Load_room_dw_castle_tv_zone_minigame()
 {
   var room = Data.Rooms.ByName("room_dw_castle_tv_zone_minigame");

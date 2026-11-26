@@ -1,3 +1,5 @@
+#load "../room_helper.csx"
+
 void Load_room_dw_cliff_shicave()
 {
   var room = Data.Rooms.ByName("room_dw_cliff_shicave");

@@ -1,3 +1,5 @@
+#load "../room_helper.csx"
+
 void Load_room_dw_green_room()
 {
   var room = Data.Rooms.ByName("room_dw_green_room");
