@@ -316,9 +316,27 @@
 /// END
 
 /// REPLACE
+            msgnextloc("* ARE YOU LOOKING FOR THE [Ring] of [Thorns]?/", "scr_text_slash_scr_text_gml_6458_0");
+/// CODE
+            msgnext(string("* ARE YOU LOOKING FOR [{0}]?/", AP_get_location_reward_text(113)));
+            scr_msgfunc(function()
+            {
+                AP_sendHint(113);
+            });
+/// END
+
+/// BEFORE
+                if (global.gold >= 1997)
+/// CODE
+                noroom = 0;
+/// END
+
+/// REPLACE
+                        msgsetloc(0, "* HERE'S YOUR [Ring]^1! CAREFUL^1, IT MIGHT [Sting]&* EAHEAHEAH/", "scr_text_slash_scr_text_gml_6503_0");
                         msgnextloc("\\S1* (You got the ThornRing.)/%", "scr_text_slash_scr_text_gml_6504_0");
 /// CODE
-                        msgnextloc(string("\\S1* (You got {0}.)/%", AP_get_location_reward_text(113)), "scr_text_slash_scr_text_gml_6504_0");
+                        msgset(0, string("* HERE'S [{0}]^1! CAREFUL^1, IT MIGHT [Sting]&* EAHEAHEAH/", AP_get_location_reward_text(113)));
+                        msgnext(string("\\S1* (You got {0}.)/%", AP_get_location_reward_text(113)));
                         scr_msgfunc(function()
                         {
                             AP_sendLocation(113);
@@ -481,6 +499,9 @@
             global.choicemsg[1] = stringsetloc("#Cyber Field", "scr_text_slash_scr_text_gml_6994_0");
             global.choicemsg[2] = stringsetloc("Trash Zone", "scr_text_slash_scr_text_gml_6995_0");
             global.choicemsg[3] = stringsetloc("Cancel", "scr_text_slash_scr_text_gml_6996_0");
+
+            if (global.AP_current_route == global.AP_ENUM_CHOSEN_ROUTE.SIDE_B && scr_sideb_get_phase() >= 1)
+                global.choicemsg[0] = stringset("#[Not found]");
             
             if (global.AP_current_route != global.AP_ENUM_CHOSEN_ROUTE.SIDE_B || scr_sideb_get_phase() >= 3)
                 global.choicemsg[0] = stringsetloc("#Mansion", "scr_text_slash_scr_text_gml_6993_0");
@@ -542,6 +563,40 @@
             }
             
             break;
+/// END
+
+/// REPLACE
+            msgsetloc(0, "\\E8* (Faha^1, Kris buying ME a ring...? Yeah^1, right!)/", "scr_text_slash_scr_text_gml_7158_0");
+/// CODE
+            var yourself = "Yourself";
+            
+            if (i_ex(obj_weirdEvent_addison_city_big_2))
+            {
+                with (obj_weirdEvent_addison_city_big_2)
+                    yourself = apdata.playerName;
+            }
+            
+            if (yourself == "Yourself")
+                msgset(0, "\\E8* (Faha^1, Kris buying ME that...? Yeah^1, right!)/");
+            else
+                msgset(0, "\\E8* (Faha^1, Kris buying THAT for someone...? Yeah^1, right!)/");
+/// END
+
+/// REPLACE
+                msgsetloc(0, "\\EF* H..^1. huh? Kris^1, you'd..^1. buy it for me...?/", "scr_text_slash_scr_text_gml_7176_0");
+/// CODE
+                var yourself = "Yourself";
+
+                if (i_ex(obj_weirdEvent_addison_city_big_2))
+                {
+                    with (obj_weirdEvent_addison_city_big_2)
+                        yourself = apdata.playerName;
+                }
+                
+                if (yourself == "Yourself")
+                    msgsetloc(0, "\\EF* H..^1. huh? Kris^1, you'd..^1. buy it for me...?/", "scr_text_slash_scr_text_gml_7176_0");
+                else
+                    msgset(0, "\\EF* H..^1. huh? Kris^1, you'd..^1. buy it for them...?/");
 /// END
 
 /// REPLACE
