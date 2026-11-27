@@ -50,9 +50,22 @@ if (ossafe_file_exists(AP_get_save_folder_prefix() + "dr.ini"))
 /// END
 
 /// REPLACE
+var INITMENU = 0;
+
 if (ossafe_file_exists("dr.ini"))
+{
+    if (FILE[0] == 0 && FILE[1] == 0 && FILE[2] == 0)
+    {
+        if (COMPLETEFILE_PREV[0] == 1 || COMPLETEFILE_PREV[1] == 1 || COMPLETEFILE_PREV[2] == 1)
+            INITMENU = 10;
+        
+        if (INCOMPLETE_LOAD == 1)
+            INITMENU = 10;
+    }
+}
+
+MENU_NO = INITMENU;
 /// CODE
-if (ossafe_file_exists(AP_get_save_folder_prefix() + "dr.ini"))
 /// END
 
 /// REPLACE
