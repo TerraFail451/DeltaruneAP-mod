@@ -31,13 +31,7 @@ global.damagefontgold = font_add_sprite_ext(spr_numbersfontbig_gold, "0123456789
 /// REPLACE
 global.screen_border_id = "";
 /// CODE
-global.screen_border_id = stringsetloc("Dynamic", "obj_initializer2_slash_Create_0_gml_22_0");
-/// END
-
-/// REPLACE
-global.game_won = false;
-/// CODE
-global.game_won = scr_completed_chapter_any_slot(2);
+global.screen_border_id = stringset("Dynamic");
 /// END
 #endif
 

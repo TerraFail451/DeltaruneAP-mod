@@ -95,7 +95,6 @@ detect_no_chapters = function()
             {
                 obj_archipelago_client.AP_disconnect();
                 audio_stop_all();
-                audio_play_sound(snd_select, 1, false);
                 game_restart();
             }
             

@@ -1,6 +1,15 @@
 /// PATCH
 
 /// REPLACE
+if (variable_global_exists("chapter_return"))
+{
+    if (global.chapter_return > 0 && !global.game_won)
+        return_title = true;
+}
+/// CODE
+/// END
+
+/// REPLACE
             if (room_id == room_dw_castle_area_1)
             {
                 if (i_ex(obj_dw_leave))
@@ -70,4 +79,10 @@
                     }
                 }
             }
+/// END
+
+/// REPLACE
+        if ((room_id == room_legend || room_id == 891 || room_id == PLACE_MENU) && global.game_won == 1)
+/// CODE
+        if (room_id == room_legend || room_id == 891 || room_id == PLACE_MENU)
 /// END

@@ -107,6 +107,5 @@ for (i = 0; i < 3; i++)
 if (global.is_console)
     global.chapter_return = -1;
 /// CODE
-global.chapter_return = -1;
 /// END
 #endif

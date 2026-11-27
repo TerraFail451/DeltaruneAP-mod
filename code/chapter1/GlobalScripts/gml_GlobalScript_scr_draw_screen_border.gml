@@ -34,6 +34,5 @@
         if (ossafe_file_exists("filech1_5"))
             game_won = true;
 /// CODE
-        if (scr_completed_chapter_any_slot(1))
-            game_won = true;
+        game_won = true;
 /// END

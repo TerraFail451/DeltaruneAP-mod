@@ -1679,8 +1679,6 @@
                     with (obj_border_controller)
                         hide_border(0.05);
                 }
-                else if (global.chapter == 2)
-                    global.chapter_return = 2;
             }
             
             if (global.submenucoord[34] >= 50)

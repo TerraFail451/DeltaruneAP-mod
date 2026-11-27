@@ -25,21 +25,17 @@ function scr_draw_screen_border(arg0)
         {
             if (instance_exists(obj_archipelago_connect_ui))
             {
-                if (obj_archipelago_connect_ui.mode == "kris")
+                if (obj_archipelago_connect_ui.mode == "weird")
+                    obj_time._border_image = border_lw_town_sunset;
+                else if (obj_archipelago_connect_ui.mode == "dog")
+                    obj_time._border_image = border_line_1080;
+                else if (obj_archipelago_connect_ui.mode == "kris")
                     obj_time._border_image = border_dw_church_a;
                 else
                     obj_time._border_image = border_lw_town;
-
-                if (obj_archipelago_connect_ui.mode == "dog")
-                {
-                    obj_time.border_fade_in = false;
-                    obj_time.border_fade_out = obj_time.border_alpha > 0;
-                }
-                else
-                {
-                    obj_time.border_fade_in = obj_time.border_alpha < 1;
-                    obj_time.border_fade_out = false;
-                }
+                
+                obj_time.border_fade_in = obj_time.border_alpha < 1;
+                obj_time.border_fade_out = false;
             }
         }
         
