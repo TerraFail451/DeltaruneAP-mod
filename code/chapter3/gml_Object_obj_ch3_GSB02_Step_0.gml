@@ -39,11 +39,12 @@
 /// AFTER
     c_mus2("volume", 0, 30);
 /// CODE
-    if (snd_is_playing(global.AP_music[1]))
+    if (global.AP_ost_shuffle)
     {
         c_customfunc(function()
         {
-            mus_volume(global.AP_music[1], 0, 30);
+            if (snd_is_playing(global.AP_music[1]))
+                mus_volume(global.AP_music[1], 0, 30);
         });
     }
 /// END
@@ -67,7 +68,7 @@
 /// CODE
     c_pan(camerax(), 0, 1);
     
-    if (snd_is_playing(global.AP_music[1]))
+    if (global.AP_ost_shuffle)
     {
         c_customfunc(function()
         {
