@@ -7,12 +7,6 @@
 /// END
 
 /// AFTER
-border_switch = false;
-/// CODE
-muscon = 0;
-/// END
-
-/// AFTER
     global.interact = 0;
 /// CODE
     if (global.retry_board)
