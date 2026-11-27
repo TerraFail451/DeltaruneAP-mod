@@ -47,24 +47,24 @@ function AP_handle_Damagelink()
         damage = ceil(scr_damage_calculation(damage, target) * all_element_reduction);
         global.hp[global.char[target]] -= damage;
         snd_play(snd_hurt1);
+    }
 
-        gameover = true;
+    gameover = true;
 
-        for (var i = 0; i < 3; i++)
+    for (var i = 0; i < 3; i++)
+    {
+        if (global.char[i] != 0 && global.hp[global.char[i]] > 0)
         {
-            if (global.char[i] != 0 && global.hp[global.char[i]] > 0)
-            {
-                gameover = false;
-                break;
-            }
+            gameover = false;
+            break;
         }
+    }
 
-        if (gameover)
-        {
-            global.AP_damagelink_protected = false;
-            
-            AP_handle_gameover();
-        }
+    if (gameover)
+    {
+        global.AP_damagelink_protected = false;
+        
+        AP_handle_gameover();
     }
     
     global.AP_damagelink_protected = false;
