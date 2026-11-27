@@ -24,10 +24,10 @@
     {
         if (scr_armorcheck_equipped(global.char[i], 38) && global.faceaction[i] == 4)
         {
-            var healnum = round(global.maxhp[global.char[i] + 1] * 0.16);
+            var healnum = round(global.maxhp[global.char[i]] * 0.16);
             
             if (global.chapter == 4 && i_ex(obj_hammer_of_justice_enemy))
-                healnum = round(global.maxhp[global.char[i] + 1] * 0.08);
+                healnum = round(global.maxhp[global.char[i]] * 0.08);
                 
             global.charinstance[i].healnum = healnum;
             scr_heal(i, healnum);

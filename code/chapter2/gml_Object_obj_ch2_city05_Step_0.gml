@@ -34,7 +34,7 @@
     c_pannable(0);
 /// CODE
     c_msgnextloc("* .../", "obj_ch2_city05_slash_Step_0_gml_638_0");
-    c_msgnextloc("* AH^1, FORGET IT./", "obj_ch2_city05_slash_Step_0_gml_638_0");
+    c_msgnextloc("* AH^1, FORGET IT./%", "obj_ch2_city05_slash_Step_0_gml_638_0");
     global.flag[309] = 1;
     c_talk();
     c_shakeobj();
