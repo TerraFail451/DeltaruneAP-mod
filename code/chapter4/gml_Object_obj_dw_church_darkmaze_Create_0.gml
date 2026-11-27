@@ -47,9 +47,17 @@ if (global.plot >= 160)
 /// REPLACE
     if (!snd_is_playing(global.currentsong[1]))
     {
+        global.currentsong[0] = snd_init("gerson_theme_intro.ogg");
+        global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
+    }
+/// CODE
+/// END
+
+/// REPLACE
+    if (!snd_is_playing(global.currentsong[1]))
+    {
         global.currentsong[0] = snd_init("church_wip.ogg");
         global.currentsong[1] = mus_loop_ext(global.currentsong[0], 0.7, 1);
     }
 /// CODE
-    instance_create(0, 0, obj_musicer_dw_church);
 /// END

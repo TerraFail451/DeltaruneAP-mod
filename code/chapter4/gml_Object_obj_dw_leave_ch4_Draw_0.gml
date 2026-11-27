@@ -19,3 +19,12 @@
 /// CODE
             snd_free(global.AP_music[0]);
 /// END
+
+/// REPLACE
+            global.entrance = 24;
+/// CODE
+            if (nextroom == 64)
+                global.entrance = 18;
+            else
+                global.entrance = 24;
+/// END

@@ -1,6 +1,15 @@
 /// PATCH
 
 /// REPLACE
+            global.entrance = 24;
+/// CODE
+            if (nextroom == 53)
+                global.entrance = 18;
+            else
+                global.entrance = 24;
+/// END
+
+/// REPLACE
             scr_become_light();
 /// CODE
             if (global.plot < 200)

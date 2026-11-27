@@ -72,7 +72,12 @@ if (top == 1)
             pers = instance_create(0, 0, obj_persistentfadein);
             pers.image_blend = c_white;
             global.interact = 3;
-            global.entrance = 24;
+            
+            if (nextroom == 60)
+                global.entrance = 18;
+            else
+                global.entrance = 24;
+            
             snd_free(global.currentsong[0]);
             snd_free(global.AP_music[0]);
             

@@ -24,5 +24,9 @@ if (border_change)
     global.plot = 160;
     global.interact = 0;
     global.facing = 0;
+    
+    if (i_ex(obj_musicer_dw_church))
+        instance_destroy(obj_musicer_dw_church);
+    
     instance_create(0, 0, obj_musicer_dw_church);
 /// END

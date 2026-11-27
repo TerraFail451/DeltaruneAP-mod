@@ -1,0 +1,12 @@
+this is for rooms that need to be changed in multiple chapters, but either:
+- aren't present in all chapters
+- should only be changed in some chapters, but not all
+of course, if a room only needs to be changed in one chapter, put it in that chapter's folder
+
+
+i created this folder because i needed to make a change to room_dw_castle_area_1 across multiple chapters, but because the room doesnt exist in chapter 1,
+i tried placing a copy of room_dw_castle_area_1.csx in the folders of multiple chapters instead of one copy in the all_chapters folder.
+however, errors were being thrown when i did this, so i created this folder as a dedicated place for these rooms to keep things organized.
+i dont know how much this will get used, but its good to have anyway.
+
+            --TerraFrost

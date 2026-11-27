@@ -4,7 +4,7 @@
 border_val = 0;
 border_change = false;
 
-if (global.plot >= 200)
+if (global.plot >= 200 && global.plot < 560)
 {
     border_change = true;
 

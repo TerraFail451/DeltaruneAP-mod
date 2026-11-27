@@ -70,6 +70,9 @@ if (skip_intro > 0)
             scr_lerpvar("image_alpha", 0, 1, 60);
         
         mus_fade(global.currentsong[1], 60);
+        
+        with (obj_border_controller)
+            hide_border(1 / 60);
     }
     
     if (skip_intro_con == 2)
