@@ -24,19 +24,12 @@ if (scr_debug() && room != room_rhythmgame_editor)
         draw_text(5, 45, "Received items: " + string(global.AP_item_got_in_current_chapter));
 
     draw_text(5, 55, "Current Route: " + AP_resolve_route_name(global.AP_current_route));
-
-    var song = global.currentsong[1];
-
-    if (global.customflags[global.custom_flags_indexes.AP_music_playing])
-        song = global.AP_music[1];
-
-    if (snd_is_playing(global.batmusic[1]))
-        song = global.batmusic[1];
-
-    draw_text(5, 65, "Track Pos: " + (snd_is_playing(song) ? string(audio_sound_get_track_position(song)) : "None Playing"));
+    draw_text(5, 65, "global.currentsong Track Pos: " + (snd_is_playing(global.currentsong[1]) ? string(audio_sound_get_track_position(global.currentsong[1])) : "Not Playing"));
+    draw_text(5, 75, "global.AP_music Track Pos: " + (snd_is_playing(global.AP_music[1]) ? string(audio_sound_get_track_position(global.AP_music[1])) : "Not Playing"));
+    draw_text(5, 85, "global.batmusic Track Pos: " + (snd_is_playing(global.batmusic[1]) ? string(audio_sound_get_track_position(global.batmusic[1])) : "Not Playing"));
 
     if (variable_global_exists("AP_debug_last_shuffled_ost"))
-        draw_text(5, 75, "OST Shuffle: " + global.AP_debug_last_shuffled_ost + " -> " + global.AP_debug_last_shuffled_ost_result);
+        draw_text(5, 95, "OST Shuffle: " + global.AP_debug_last_shuffled_ost + " -> " + global.AP_debug_last_shuffled_ost_result);
 }
 
 if (!global.AP_sync)
