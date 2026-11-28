@@ -38,7 +38,14 @@
 /// CODE
         c_mus2("initloop", "cliff.ogg", 1);
         c_mus2("volume", 0, 1);
-        c_customfunc(function(arg0, arg1)
+        c_customfunc(function(arg0)
+        {
+            if (!global.AP_ost_shuffle)
+                snd_volume(global.currentsong[1], 1, 30);
+            
+            audio_sound_set_track_position(global.currentsong[1], arg0);
+        }, prevtrackpos);
+        c_customfunc(function(arg0)
         {
             if (global.AP_ost_shuffle)
             {
@@ -46,11 +53,7 @@
                 global.AP_music[1] = mus_loop(global.AP_music[0]);
                 snd_volume(global.AP_music[1], 0, 1);
                 snd_volume(global.AP_music[1], 1, 30);
-                audio_sound_set_track_position(global.AP_music[1], arg1);
+                audio_sound_set_track_position(global.AP_music[1], arg0);
             }
-            else
-                snd_volume(global.currentsong[1], 1, 30);
-            
-            audio_sound_set_track_position(global.currentsong[1], arg0);
-        }, prevtrackpos, AP_prevtrackpos);
+        }, AP_prevtrackpos);
 /// END
