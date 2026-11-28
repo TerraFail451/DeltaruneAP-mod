@@ -51,17 +51,19 @@ if (myinteract == 6 && !d_ex())
     var smallfacetext1 = stringset("Huh?");
     var smallfacetext2 = stringset("Hey, what the hell!");
     var smallfacetext2_face = 17;
+    var smallfacetext2_x = "rightmid";
     
     if (global.flag[1404] == 1)
     {
         smallfacetext0 = stringset("I could already do that, dumbass!");
         smallfacetext2 = stringset("???");
         smallfacetext2_face = 20;
+        smallfacetext2_x = "right";
     }
     
     scr_smallface(0, "susie", 17, sf.x, sf.y, smallfacetext0);
     scr_smallface(1, "susie", 43, "right", "bottom", smallfacetext1);
-    scr_smallface(2, "susie", smallfacetext2_face, "right", "bottom", smallfacetext2);
+    scr_smallface(2, "susie", smallfacetext2_face, smallfacetext2_x, "bottom", smallfacetext2);
     
     if (global.flag[1404] == 1)
     {
@@ -75,7 +77,7 @@ if (myinteract == 6 && !d_ex())
         {
             snd_play(snd_sparkle_glock);
         });
-        msgnext(string("* (You got {0}.^1)\\f2/%", AP_get_location_reward_text(349)));
+        msgnext(string("* (You got {0}.)\\f2/%", AP_get_location_reward_text(349)));
         scr_msgfunc(function()
         {
             snd_play(snd_item);
@@ -84,7 +86,7 @@ if (myinteract == 6 && !d_ex())
     }
     else
     {
-        msgnext(string("* (Susie's ability to equip RIBBONS turned into {0}!^1)\\f1/", AP_get_location_reward_text(349)));
+        msgnext(string("* (Susie's ability to equip RIBBONS turned into {0}!)\\f1/", AP_get_location_reward_text(349)));
         scr_msgfunc(function()
         {
             snd_play(snd_hypnosis);
