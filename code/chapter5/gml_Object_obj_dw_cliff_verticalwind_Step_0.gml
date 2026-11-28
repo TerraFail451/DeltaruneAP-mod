@@ -24,7 +24,7 @@
         c_customfunc(function()
         {
             snd_free(global.AP_music[0]);
-            global.customflags[global.custom_flags_indexes.AP_music_playing] = 0;
+            global.AP_music_playing = false;
         });
     }
 /// END

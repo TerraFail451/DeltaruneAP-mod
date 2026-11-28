@@ -1,7 +1,7 @@
 /// PATCH
 
 /// PREPEND
-global.customflags[global.custom_flags_indexes.AP_music_playing] = 0;
+global.AP_music_playing = false;
 /// END
 
 /// REPLACE
@@ -29,6 +29,6 @@ if (global.AP_ost_shuffle)
         global.AP_music[1] = mus_loop_ext(global.AP_music[0], 1, 1);
     }
 
-    global.customflags[global.custom_flags_indexes.AP_music_playing] = 1;
+    global.AP_music_playing = true;
 }
 /// END

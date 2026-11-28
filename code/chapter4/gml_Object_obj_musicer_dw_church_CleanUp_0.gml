@@ -1,2 +1,2 @@
 /// IMPORT
-global.customflags[global.custom_flags_indexes.AP_music_playing] = 0;
+global.AP_music_playing = false;

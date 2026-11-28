@@ -295,6 +295,7 @@ function scr_gamestart()
     global.batmusic[1] = snd_nosound;
     global.AP_music[0] = snd_nosound;
     global.AP_music[1] = snd_nosound;
+    global.AP_music_playing = false;
     global.fc = 0;
     global.fe = 0;
     global.choice = -1;

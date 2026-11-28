@@ -30,7 +30,7 @@ AP_lastmusicpos = 0;
         
         if (lastmusic != "")
         {
-            if (global.customflags[global.custom_flags_indexes.AP_music_playing])
+            if (global.AP_music_playing)
                 global.currentsong[0] = snd_init(lastmusic, false);
             else
                 global.currentsong[0] = snd_init(lastmusic);
@@ -39,11 +39,11 @@ AP_lastmusicpos = 0;
             audio_sound_set_track_position(global.currentsong[1], lastmusicpos);
             mus_volume(global.currentsong[1], 0, 0);
 
-            if (!global.customflags[global.custom_flags_indexes.AP_music_playing])
+            if (!global.AP_music_playing)
                 mus_volume(global.currentsong[1], 1, 30);
         }
         
-        if (global.customflags[global.custom_flags_indexes.AP_music_playing])
+        if (global.AP_music_playing)
         {
             if (AP_lastmusic != "")
             {
@@ -86,7 +86,7 @@ AP_lastmusicpos = 0;
         lastmusicpos = audio_sound_get_track_position(global.currentsong[1]);
         snd_free(global.currentsong[0]);
 
-        if (global.customflags[global.custom_flags_indexes.AP_music_playing])
+        if (global.AP_music_playing)
         {
             AP_lastmusic = string_trim_start(APname, ["mus/"]);
             AP_lastmusicpos = audio_sound_get_track_position(global.AP_music[1]);
