@@ -37,11 +37,11 @@
         }, prevtrackpos);
 /// CODE
         c_mus2("initloop", "cliff.ogg", 1);
-        c_mus2("volume", 0, 1);
+        c_mus2("volume", 0, 0);
         c_customfunc(function(arg0)
         {
             if (!global.AP_ost_shuffle)
-                snd_volume(global.currentsong[1], 1, 30);
+                mus_volume(global.currentsong[1], 1, 30);
             
             audio_sound_set_track_position(global.currentsong[1], arg0);
         }, prevtrackpos);
@@ -51,8 +51,8 @@
             {
                 global.AP_music[0] = snd_init("cliff.ogg");
                 global.AP_music[1] = mus_loop(global.AP_music[0]);
-                snd_volume(global.AP_music[1], 0, 1);
-                snd_volume(global.AP_music[1], 1, 30);
+                mus_volume(global.AP_music[1], 0, 0);
+                mus_volume(global.AP_music[1], 1, 30);
                 audio_sound_set_track_position(global.AP_music[1], arg0);
             }
         }, AP_prevtrackpos);
