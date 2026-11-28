@@ -196,8 +196,15 @@ function AP_ost_shuffle_toggle()
     {
         if (obj_musicer_room.mysong == "cliff.ogg")
         {
+            var _volume = obj_musicer_room.volume;
+            var _pitch = obj_musicer_room.pitch;
             instance_destroy(obj_musicer_room);
-            instance_create(0, 0, obj_musicer_room);
+            instance_create_layer(0, 0, "OBJECTS_MAIN", obj_musicer_room, 
+            {
+                mysong: "cliff.ogg",
+                volume: _volume,
+                pitch: _pitch
+            });
             stop = true;
         }
     }
